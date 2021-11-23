@@ -1,0 +1,7 @@
+.photo {
+  height: 100%;
+  width:  auto;
+  object-fit:  fill;
+  max-width:  100%;
+  position: 'absolute';
+}

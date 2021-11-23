@@ -1,0 +1,465 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"contac",
+				"contractBalance"
+			],
+			[
+				"totalPlatfor",
+				"totalPlatformFeesPost"
+			],
+			[
+				"total",
+				"totalPlatformFees"
+			],
+			[
+				"creator",
+				"creatorBalancePre"
+			],
+			[
+				"contract",
+				"contractBalance"
+			],
+			[
+				"proce",
+				"proceedsValues"
+			],
+			[
+				"contrac",
+				"contractInstance"
+			],
+			[
+				"CreatorToke",
+				"CreatorTokenOwnership"
+			],
+			[
+				"uint",
+				"uint256"
+			],
+			[
+				"buy",
+				"_buyFunction"
+			],
+			[
+				"if",
+				"ifmain\tif __name__ == '__main__'"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "App.js",
+			"settings":
+			{
+				"buffer_size": 906,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+			]
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"package control",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package conrol",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"View Package File"
+			],
+			[
+				"enable",
+				"Package Control: Enable Package"
+			],
+			[
+				"package control disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"markdwo",
+				"Set Syntax: Markdown"
+			],
+			[
+				"enable ",
+				"Package Control: Enable Package"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"install package",
+				"Package Control: Install Package"
+			],
+			[
+				"repo",
+				"Package Control: Add Repository"
+			],
+			[
+				"Install P",
+				"Install Package Control"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 601.0,
+		"history":
+		[
+			"Install Package Control",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)\n"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/front_end/package.json",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/front_end/package-lock.json",
+		"/Users/kamilalizaisadik/Library/Application Support/Sublime Text 3/Packages/User/View In Browser.sublime-settings",
+		"/Users/kamilalizaisadik/Library/Application Support/Sublime Text 3/Packages/View In Browser/View In Browser.sublime-settings",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/serviceWorker.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/index.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/Header.jsx",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/CoffeCard.jsx",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/Content.jsx",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/constants.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/src/App.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokenfactory.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokenhelper.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokenownership.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokenformulas.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokenfees.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/creatortokencomputation.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/CreatorTokenExchange.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/test/CreatorTokenExchange.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/truffle-config.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/README.md",
+		"/Users/kamilalizaisadik/README.md",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/index.jsx",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/contracts/index.jsx",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/index.html",
+		"/Users/kamilalizaisadik/Library/Application Support/Sublime Text 3/Packages/MarkdownPreview/MarkdownPreview.sublime-settings",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/migrations/1_initial_migration.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/migrations/2_creator_token_exchange.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokenhelper.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokenownership.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokenformulas.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokenfees.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokencomputation.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/CreatorTokenExchange.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/test/CreatorTokenExchange.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/truffle-config.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/README.md",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/creatortokenfactory.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/test/helpers/utils.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/index.html",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/migrations/1_initial_migration.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/migrations/2_creator_token_exchange.js",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/build/contracts/CreatorTokenExchange.json",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange (pre-formula revamp).sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/build/ABI.json",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/testnet_private_key",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/Migrations.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/ownable.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/erc1155.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/package-lock.json",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/safemath.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/contracts/erc20.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/ownable.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/safemath.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/erc1155.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/creatortokenfactory.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/creatortokenhelper.sol",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/creatortokenownership.sol",
+		"/Users/kamilalizaisadik/Documents/crypto/phantom/phantom",
+		"/Users/kamilalizaisadik/Documents/crypto/solflare/solflare-keystore-9MBaRWuYbAknavPbgk9kYQ6aqLG48gidvJfyZ4Akkf7U.json",
+		"/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/damm_solidity/erc20.sol",
+		"/Users/kamilalizaisadik/trial-alert/trial_alert/trial_alert_stack.py",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a5/local_env.yml",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/nmt_model.py",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/outputs/test_outputs.txt",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/en_es_data/test.es",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/en_es_data/test.en",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a5/run.py",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/utils.py",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a4/local_env.yml",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a3/local_env.yml",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a2/env.yml",
+		"/Users/kamilalizaisadik/Desktop/CS224N/a1/env.yml",
+		"/Users/kamilalizaisadik/Desktop/CS224N/Assignment 2/env.yml",
+		"/Users/kamilalizaisadik/Desktop/config.json",
+		"/Users/kamilalizaisadik/Documents/kamil-obsidian/2019-10-14.md",
+		"/Users/kamilalizaisadik/Desktop/Notebook/1_2_2020.md",
+		"/Users/kamilalizaisadik/Desktop/template.tmpl",
+		"/Users/kamilalizaisadik/python/evernote_roam/Evernote Markdown/April 10th, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/January 3rd, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/January 1st, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/January 2nd, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/January 3rd, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/1-3-2020.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/January 2nd, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/January 1st, 2020.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/Untitled_Note.md",
+		"/Users/kamilalizaisadik/Desktop/Evernote Markdown/config.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/pearpop_jsons/pearpop_users_12192020.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/pearpop_jsons/pearpop_users_12072020.json",
+		"/Users/kamilalizaisadik/Desktop/trial_data/12-09-2020 1026am updater.py",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/pearpop_jsons/pearpop_users_12162020.json",
+		"/Users/kamilalizaisadik/Desktop/trial_data/updater back up as of 12-02-2020 1348ET.py",
+		"/Users/kamilalizaisadik/Install Certificates.command",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/legal/termsOfUse.html",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/legal/privacyPolicy.html",
+		"/Users/kamilalizaisadik/Desktop/trial-alert/cdk.json",
+		"/Library/Python/3.7/site-packages/pexpect/bashrc.sh",
+		"/Users/kamilalizaisadik/Desktop/aws cdk cheat sheet",
+		"/Users/kamilalizaisadik/Desktop/cdkworkshop/source.bat",
+		"/Users/kamilalizaisadik/Desktop/rss/venv/bin/activate_this.py",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/pearpop_jsons/pearpop_users_11122020.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/new_inbeat_jsons/results_fashion_0.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_2_copy.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/new_inbeat_jsons/results_all_79.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_206.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_2_copy_2.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_209.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_145.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_141.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_140.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/result_NEXT.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/result.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/jsons/result_120.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_0.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_72.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_73.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_74.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_75.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_76.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_77.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_78.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_79.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_80.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_81.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_82.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_83.json",
+		"/Users/kamilalizaisadik/Desktop/DuoBlitz/inbeat_jsons/results_84.json"
+	],
+	"find":
+	{
+		"height": 24.0
+	},
+	"find_in_files":
+	{
+		"height": 98.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "App.js",
+					"selected": true,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 906,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								906,
+								906
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 24.0
+	},
+	"input":
+	{
+		"height": 36.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 226.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "CTE.sublime-project",
+	"replace":
+	{
+		"height": 44.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/DeFi/Dynamic Automated Market Maker/damm_solidity/creatortokenfactory.sol"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

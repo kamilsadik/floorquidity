@@ -1,0 +1,14 @@
+{
+    "folders":
+    [
+        {
+            "path": "/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/front_end"
+        }
+    ],
+    "settings": {
+        "sublime-view-in-browser": {
+            "baseUrl": "localhost:8080",
+            "basePath": "/Users/kamilalizaisadik/DeFi/Dynamic Automated Market Maker/CreatorTokenExchange/front_end"
+        }
+    }
+}

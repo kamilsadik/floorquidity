@@ -22,8 +22,6 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 
 	// Percentage platform fee paid by the seller (i.e., seller receives proceeds equal to bid*(1 - platformFee/100)
 	uint public platformFee = 2;
-	// Variable to track total platform fees generated
-	uint public totalPlatformFees = 0;
 
 	// Struct containing Bid attributes
 	struct Bid {
@@ -71,26 +69,29 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 	/// @dev Sells an NFT into a bid (i.e., "hits" the bid)
 	/// @param _sellerAddress Address of the seller
 	/// @param _bidId Bid id of the bid being sold into
-	function hitBid(address payable _sellerAddress, uint _bidId) public {
+	/// @param _tokenId Token id of the NFT in question
+	function hitBid(address payable _sellerAddress, uint _bidId, uint _tokenId) public {
 		// Require that _sellerAddress is sender
 		require(msg.sender == _sellerAddress);
+		// Require that bidStatus of _bidId bid is true
+		require(bids[_bidId].bidStatus);
+
+
+		// Require that the NFT is in the collection to which the bid applies
+		// IS THERE A GOOD WAY TO EXAMINE THE METADATA TO FIND THE CONTRACT ADDRESS? CHECK ERC721 CODE
 		// Transfer NFT from seller address to buyer address
-		ERC721Interface(nftsOne[_swapId][i].dapp).safeTransferFrom(address(this), swapList[_swapCreator][swapMatch[_swapId]].addressTwo, nftsOne[_swapId][i].tokenId[0], nftsOne[_swapId][i].data);
+		ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId, nftsOne[_swapId][i].data);
+		
+
+
 		// Calculate net proceeds that seller is owed after accounting for the platform fee
 		uint netProceeds = bids[_bidId].bidAmount*(1-platformFee)/100;
-		// Transfer proceeds to seller address
+		// Transfer net proceeds to seller address
 		_sellerAddress.transfer(netProceeds);
-		// Set bidstatus of buyer's bid to false
-
+		// Transfer platform fee to owner
+		owner().transfer(bids[_bidId].bidAmount - netProceeds));
+		// Set bidStatus of buyer's bid to false
+		bids[_bidId].bitStatus == false;
 	}
-
-
-	// UPDATE COLLECTIONS MAPPING OWNABLE FUNCTION (perhaps do this in a separate contract)
-
-
-	// ADD COLLECTIONS OWNABLE FUNCTION
-
-
-	// Add platform fee updater
 
 }

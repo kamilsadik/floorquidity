@@ -35,6 +35,9 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 	// Array of all bids
 	Bid[] public bids;
 
+	// Mapping from collections to bids on that collection
+	//mapping (address => Bid[]) public collectionsToBids;
+
 	/// @dev Creates a new bid
 	/// @param _bidderAddress Address of the bidder
 	/// @param _collectionAddress Contract address of the NFT collection to which the bid applies
@@ -48,6 +51,8 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 		uint id = bids.length;
 		// Add bid to bids array
 		bids.push(Bid(_bidderAddress, _collectionAddress, _bidAmount, id, true));
+		// Add bid to collectionsToBids mapping
+
 		// Emit bid creation event
 		emit NewBid(_bidderAddress, _collectionAddress, _bidAmount, id, true);
 	}

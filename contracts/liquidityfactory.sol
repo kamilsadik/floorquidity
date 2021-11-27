@@ -2,12 +2,12 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+//import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 
-abstract contract ERC721Interface {
-  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual;
-  function balanceOf(address owner) public virtual view returns (uint256 balance) ;
-}
+//abstract contract ERC721Interface {
+//  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual;
+//  function balanceOf(address owner) public virtual view returns (uint256 balance) ;
+//}
 
 /// @title A contract creating a mechanism by which to bid on any NFT in a given collection
 /// @author Kamil Alizai Sadik
@@ -83,9 +83,11 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 
 
 		// Require that the NFT is in the collection to which the bid applies
+		
 		// IS THERE A GOOD WAY TO EXAMINE THE METADATA TO FIND THE CONTRACT ADDRESS? CHECK ERC721 CODE
+		
 		// Transfer NFT from seller address to buyer address
-		ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId, nftsOne[_swapId][i].data);
+		//ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId, nftsOne[_swapId][i].data);
 		
 
 

@@ -90,4 +90,10 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 		// Emit new trade event
 		emit NewTrade(_sellerAddress, bids[_bidId].bidderAddress, bids[_bidId].bidAmount, _tokenId);
 	}
+
+	/// @dev Allows owner to change platformFee
+	/// @param _newPlatformFee New platform fee
+	function changePlatformFee(uint _newPlatformFee) external onlyOwner {
+		platformFee = _newPlatformFee;
+	}
 }

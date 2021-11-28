@@ -1,12 +1,12 @@
-const CreatorTokenExchange = artifacts.require("CreatorTokenExchange");
+const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
 
-contract("CreatorTokenExchange", (accounts) => {
+contract("LiquidityFactory", (accounts) => {
 
-    let [owner, creator, newCreator, user, newUser, user3, user4, user5] = accounts;
+    let [owner, bidder, seller] = accounts;
     let contractInstance;
     beforeEach(async () => {
-        contractInstance = await CreatorTokenExchange.new("CreatorTokenExchange");
+        contractInstance = await LiquidityFactory.new("LiquidityFactory");
     });
 
     it("should be able to create a new Creator Token", async () => {

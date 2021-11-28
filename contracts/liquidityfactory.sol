@@ -42,7 +42,7 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 	/// @param _bidderAddress Address of the bidder
 	/// @param _collectionAddress Contract address of the NFT collection to which the bid applies
 	/// @param _bidAmount Amount of bid in ETH
-	function submitBid(address payable _bidderAddress, address _collectionAddress, uint memory _bidAmount) public {
+	function submitBid(address payable _bidderAddress, address _collectionAddress, uint _bidAmount) public {
 		// Require that bidding address is sender
 		require(msg.sender == _bidderAddress);
 		// Reequire that message value is equal to _bidAmount
@@ -83,7 +83,7 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 		// Transfer NFT from seller address to vault
 		ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId);
 		// Transfer NFT from vault to buyer
-		bids[_bidId].collectionAddress
+		//bids[_bidId].collectionAddress
 		// Calculate net proceeds that seller is owed after accounting for the platform fee
 		uint netProceeds = bids[_bidId].bidAmount*(1-platformFee)/100;
 		// Transfer net proceeds to seller address

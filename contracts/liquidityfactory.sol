@@ -76,10 +76,10 @@ contract LiquidityFactory is Ownable, ERC721 {
 		require(msg.sender == _sellerAddress);
 		// Require that bidStatus of _bidId bid is true
 		require(bids[_bidId].bidStatus == true);
-		// Transfer NFT from seller address to vault
-		//ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId);
-		// Transfer NFT from vault to buyer
-		//bids[_bidId].collectionBaseUri
+		// Require that NFT is in the eligible collection
+		require(bids[_bidId].collectionBaseUri == baseURI());
+		// Transfer NFT from seller to buyer
+		
 		// Calculate net proceeds that seller is owed after accounting for the platform fee
 		uint netProceeds = bids[_bidId].bidAmount*(1-platformFee)/100;
 		// Transfer net proceeds to seller address

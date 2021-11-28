@@ -11,9 +11,9 @@ contract LiquidityFactory is Ownable, ERC721 {
 	constructor() public ERC721("NonFungibleToken", "NFT") {}
 
 	// Event that fires when a new bid is submitted
-	event NewBid(address payable bidderAddress, address collectionAddress, uint bidAmount, uint bidId, bool bidStatus);
+	event NewBid(address payable bidderAddress, string collectionBaseUri, uint bidAmount, uint bidId, bool bidStatus);
 	// Event that fires when a bid is canceled
-	event BidCanceled(address payable bidderAddress, address collectionAddress, uint bidAmount, uint bidId, bool bidStatus);
+	event BidCanceled(address payable bidderAddress, string collectionBaseUri, uint bidAmount, uint bidId, bool bidStatus);
 	// Event that fires when a bid is hit
 	event NewTrade(address payable sellerAddress, address payable buyerAddress, uint bidAmount, uint tokenId);
 
@@ -23,7 +23,7 @@ contract LiquidityFactory is Ownable, ERC721 {
 	// Struct containing Bid attributes
 	struct Bid {
 		address payable bidderAddress;
-		address collectionAddress;
+		string collectionBaseUri;
 		uint bidAmount;
 		uint bidId;
 		bool bidStatus;
@@ -37,9 +37,9 @@ contract LiquidityFactory is Ownable, ERC721 {
 
 	/// @dev Creates a new bid
 	/// @param _bidderAddress Address of the bidder
-	/// @param _collectionAddress Contract address of the NFT collection to which the bid applies
+	/// @param _collectionBaseUri Base URI of the NFT collection to which the bid applies
 	/// @param _bidAmount Amount of bid in ETH
-	function submitBid(address payable _bidderAddress, address _collectionAddress, uint _bidAmount) external payable {
+	function submitBid(address payable _bidderAddress, string memory _collectionBaseUri, uint _bidAmount) external payable {
 		// Require that bidding address is sender
 		require(msg.sender == _bidderAddress);
 		// Reequire that message value is equal to _bidAmount
@@ -47,10 +47,10 @@ contract LiquidityFactory is Ownable, ERC721 {
 		// Create bid id
 		uint id = bids.length;
 		// Add bid to bids array
-		bids.push(Bid(_bidderAddress, _collectionAddress, _bidAmount, id, true));
+		bids.push(Bid(_bidderAddress, _collectionBaseUri, _bidAmount, id, true));
 		// Add bid to collectionsToBids mapping
 		// Emit bid creation event
-		emit NewBid(_bidderAddress, _collectionAddress, _bidAmount, id, true);
+		emit NewBid(_bidderAddress, _collectionBaseUri, _bidAmount, id, true);
 	}
 
 	/// @dev Cancels a bid
@@ -64,7 +64,7 @@ contract LiquidityFactory is Ownable, ERC721 {
 		// Refund bidder
 		_bidderAddress.transfer(bids[_bidId].bidAmount);
 		// Emit bid cancelation event
-		emit BidCanceled(_bidderAddress, bids[_bidId].collectionAddress, bids[_bidId].bidAmount, bids[_bidId].bidId, false);
+		emit BidCanceled(_bidderAddress, bids[_bidId].collectionBaseUri, bids[_bidId].bidAmount, bids[_bidId].bidId, false);
 	}
 
 	/// @dev Sells an NFT into a bid (i.e., "hits" the bid)
@@ -79,7 +79,7 @@ contract LiquidityFactory is Ownable, ERC721 {
 		// Transfer NFT from seller address to vault
 		//ERC721Interface().safeTransferFrom(_sellerAddress, bids[_bidId].bidderAddress, _tokenId);
 		// Transfer NFT from vault to buyer
-		//bids[_bidId].collectionAddress
+		//bids[_bidId].collectionBaseUri
 		// Calculate net proceeds that seller is owed after accounting for the platform fee
 		uint netProceeds = bids[_bidId].bidAmount*(1-platformFee)/100;
 		// Transfer net proceeds to seller address

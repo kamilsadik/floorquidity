@@ -2,13 +2,27 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+//import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+
+abstract contract ERC721Interface {
+  function safeTransferFrom(address from, address to, uint256 tokenId, bytes memory data) public virtual;
+  function balanceOf(address owner) public virtual view returns (uint256 balance) ;
+}
 
 /// @title A contract creating a mechanism by which to bid on any NFT in a given collection
 /// @author Kamil Alizai Sadik
-contract LiquidityFactory is Ownable, ERC721 {
+contract LiquidityFactory is Ownable, IERC721Receiver {
 
-	constructor() public ERC721("NonFungibleToken", "NFT") {}
+	//constructor() public ERC721("NonFungibleToken", "NFT") {}
+
+    //Interface IERC721/IERC1155
+    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external override returns (bytes4) {
+        return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
+    }
+
+	// Set owner wallet as payable
+	address payable OWNER = payable(owner());
 
 	// Event that fires when a new bid is submitted
 	event NewBid(address payable bidderAddress, string collectionBaseUri, uint bidAmount, uint bidId, bool bidStatus);
@@ -84,8 +98,6 @@ contract LiquidityFactory is Ownable, ERC721 {
 		uint netProceeds = bids[_bidId].bidAmount*(1-platformFee)/100;
 		// Transfer net proceeds to seller address
 		_sellerAddress.transfer(netProceeds);
-		// Set owner wallet as payable
-		address payable OWNER = payable(owner());
 		// Transfer platform fee to owner
 		OWNER.transfer(bids[_bidId].bidAmount - netProceeds);
 		// Set bidStatus of buyer's bid to false

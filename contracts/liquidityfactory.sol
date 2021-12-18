@@ -12,7 +12,7 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
     function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external override returns (bytes4) {
         return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
     }
-    
+
 	// Set owner wallet as payable
 	address payable OWNER = payable(owner());
 
@@ -54,7 +54,6 @@ contract LiquidityFactory is Ownable, IERC721Receiver {
 		uint id = bids.length;
 		// Add bid to bids array
 		bids.push(Bid(_bidderAddress, _collectionBaseUri, _bidAmount, id, true));
-		// Add bid to collectionsToBids mapping
 		// Emit bid creation event
 		emit NewBid(_bidderAddress, _collectionBaseUri, _bidAmount, id, true);
 	}

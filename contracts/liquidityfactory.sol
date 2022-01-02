@@ -8,10 +8,10 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 /// @author Kamil Alizai Sadik
 contract LiquidityFactory is Ownable, IERC721Receiver {
 
-    //Interface IERC721/IERC1155
-    function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external override returns (bytes4) {
-        return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
-    }
+	//Interface IERC721/IERC1155
+	function onERC721Received(address operator, address from, uint256 tokenId, bytes calldata data) external override returns (bytes4) {
+			return bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"));
+	}
 
 	// Set owner wallet as payable
 	address payable OWNER = payable(owner());

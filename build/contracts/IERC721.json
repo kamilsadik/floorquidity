@@ -25,7 +25,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/LiquidityFactory.sol\":\"IERC721\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x1cae4f85f114ff17b90414f5da67365b1d00337abb5bce9bf944eb78a2c0673c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d5ff16b336ce8f906478d5f2eecc6435e00833bdc0b92f6b209cf9e92cb5b2b7\",\"dweb:/ipfs/QmRD1rAZEqQ73C33cdA3QoUyBDMEWnNKNMc6PNkAZWHeQQ\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0xf930d2df426bfcfc1f7415be724f04081c96f4fb9ec8d0e3a521c07692dface0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fc2bfdea0d2562c76fb3c4cf70a86c6ba25c5a30e8f8515c95aafdf8383f8395\",\"dweb:/ipfs/QmTbFya18786ckJfLYUoWau9jBTKfmWnWm5XSViWvB7PXN\"]},\"project:/contracts/LiquidityFactory.sol\":{\"keccak256\":\"0x6d31db82b612f62f65e22a564ec8b6704f38b245c3b59230e37482f9e8b1d04a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b962f8ab10d4369a94520e1d1424dff778b97cc343dae740a2a474f375106535\",\"dweb:/ipfs/QmZ31WVvCmWq136rqdGKHG8m8cSAgrSSsiJBUmJhFo3C75\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/LiquidityFactory.sol\":\"IERC721\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x1cae4f85f114ff17b90414f5da67365b1d00337abb5bce9bf944eb78a2c0673c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d5ff16b336ce8f906478d5f2eecc6435e00833bdc0b92f6b209cf9e92cb5b2b7\",\"dweb:/ipfs/QmRD1rAZEqQ73C33cdA3QoUyBDMEWnNKNMc6PNkAZWHeQQ\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0xf930d2df426bfcfc1f7415be724f04081c96f4fb9ec8d0e3a521c07692dface0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fc2bfdea0d2562c76fb3c4cf70a86c6ba25c5a30e8f8515c95aafdf8383f8395\",\"dweb:/ipfs/QmTbFya18786ckJfLYUoWau9jBTKfmWnWm5XSViWvB7PXN\"]},\"project:/contracts/LiquidityFactory.sol\":{\"keccak256\":\"0x73ba5e19cad2b675d39e851d8ce12b299488168a2ca0b7dafd416d0d4b20b95d\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0bd1964bed5b5abaf47ba90676742824583423db9c06370e49aee5cf86764fb4\",\"dweb:/ipfs/QmSm7ZQBjcHgd8pgxsN6aqrELSdb38zsUDVpSLqktFa9Mg\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -33,7 +33,7 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ninterface IERC721 {\n\tfunction safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;\n}\ninterface CryptopunkInterface {\n\tfunction transferPunk(address _to, uint _tokenId) external;\n}\n\n/// @title A contract enabling bidders to bid on any NFT in a given collection, and holders to sell any NFT from that collection into such a bid\n/// @author Kamil Alizai Sadik\ncontract LiquidityFactory is Ownable {\n\n\t// Set owner wallet as payable\n\taddress payable OWNER = payable(owner());\n\t// Percentage platform fee paid by the seller, in basis points\n\tuint256 public platformFee = 200;\n\n\t// Event that fires when a new bid is submitted\n\tevent NewBid(address indexed bidderAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\t// Event that fires when a bid is canceled\n\tevent BidCanceled(address indexed bidderAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\t// Event that fires when a bid is hit\n\tevent NewTrade(address indexed bidderAddress, address indexed sellerAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\n\t// Struct containing Bid attributes\n\tstruct Bid {\n\t\tuint256 weiPriceEach;\n\t\tuint256 quantity;\n\t}\n\n\t// Array of all bids (bidder => NFT collection address => Bid {weiPriceEach, quantity})\n\tmapping(address => mapping(address => Bid)) bids;\n\n\t/// @dev Creates a new bid\n\t/// @param _nftAddress Address of desired NFT collection\n\t/// @param _quantity Quantity of desired NFT\n\tfunction submitBid(address _nftAddress, uint _quantity) external payable {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[msg.sender][_nftAddress];\n\t\t// Require that bidder does not already have a bid on this collection\n\t\trequire(bid.quantity == 0, \"Cancel existing bid before placing a new one.\");\n\t\t// Require that message value is > 0\n\t\trequire (msg.value > 0, \"Bid value must exceed 0 ETH.\");\n\t\t// Compute value of each bid, in wei\n\t\tuint256 weiPriceEach = uint256(msg.value) / _quantity;\n\t\t// Update bids mapping\n\t\tbids[msg.sender][_nftAddress].weiPriceEach = weiPriceEach;\n\t\tbids[msg.sender][_nftAddress].quantity = _quantity;\n\t\t// Emit bid creation event\n\t\temit NewBid(msg.sender, _nftAddress, weiPriceEach, _quantity, 0);\n\t}\n\n\t/// @dev Cancels a bid\n\t/// @param _nftAddress Address of NFT collection for which bid is being canceled\n\tfunction cancelBid(address _nftAddress) external {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[msg.sender][_nftAddress];\n\t\t// Compute refund\n\t\tuint256 refund = bid.weiPriceEach * bid.quantity;\n\t\t// Require that bidder is due a refund\n\t\trequire(refund != 0, \"You have no live bids for this collection.\");\n\t\t// Delete bid\n\t\tdelete bids[msg.sender][_nftAddress];\n\t\t// Refund bidder\n\t\tsendValue(payable(msg.sender), refund);\n\t\t// Emit bid cancelation event\n\t\temit BidCanceled(msg.sender, _nftAddress, bid.weiPriceEach, bid.quantity, 0);\n\t}\n\n\t/// @dev Sells an NFT into a bid (i.e., \"hits\" the bid)\n\t/// @param _bidderAddress Address of the bidder\n\t/// @param _nftAddress Address of collection to which the bid applies\n\t/// @param _tokenId Token id of the NFT in question\n\t/// @param _expectedWeiPriceEach Price (in wei) that seller expects to receive for each NFT\n\t/// @return Proceeds remitted to seller\n\tfunction hitBid(address _bidderAddress,address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[_bidderAddress][_nftAddress];\n\t\t// Require that bid exists\n\t\trequire(bid.quantity > 0, \"This bid does not exist.\");\n\t\t// Require that bid amount is at least what the seller expects\n\t\trequire(bid.weiPriceEach >= _expectedWeiPriceEach, \"Bid is insufficient.\");\n\t\t// Decrement bidder's bid quantity for this collection\n\t\tbids[_bidderAddress][_nftAddress].quantity = bid.quantity - 1;\n\t\t// Compute platform fee proceeds\n\t\tuint256 platformFeeProceeds = bid.weiPriceEach * platformFee / 10000;\n\t\t// Remit platform fee proceeds to owner\n\t\tsendValue(OWNER, platformFeeProceeds);\n\t\t// Transfer NFT to bidder\n\t\t// Check whether _nftAddress is Cryptopunks address\n\t\tif (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {\n\t\t\tCryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);\n\t\t} else {\n\t\t\tIERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);\n\t\t}\n\t\t// Compute seller proceeds\n\t\tuint256 sellerProceeds = bid.weiPriceEach - platformFeeProceeds;\n\t\t// Remit seller proceeds to seller\n\t\tsendValue(payable(msg.sender), sellerProceeds);\n\t\t// Emit new trade event\n\t\temit NewTrade(_bidderAddress, msg.sender, _nftAddress, bid.weiPriceEach, 1, _tokenId);\n\t\t// Return seller proceeds\n\t\treturn sellerProceeds;\n\t}\n\n\t/// @dev Sells multiple NFTs into multiple bids (i.e., \"hits\" multiple bids)\n\t/// @param _bidderAddresses Array of addresses of bidders\n\t/// @param _nftAddress Address of collection to which the bids apply\n\t/// @param _tokenIds Array of token ids of the NFTs in question\n\t/// @param _expectedWeiPriceEach Array of prices (in wei) that seller expects to receive for each NFT\n\t/// @return Array of proceeds remitted to seller for each sold NFT\n\tfunction hitMultipleBids(address[] memory _bidderAddresses, address _nftAddress, uint256[] memory _tokenIds, uint256[] memory _expectedWeiPriceEach) external returns (uint256[] memory){\n\t\t// Check that number of bids matches number of expected sales\n\t\trequire(_bidderAddresses.length == _tokenIds.length && _tokenIds.length == _expectedWeiPriceEach.length, \"Mismatching array lengths\");\n\t\t// Initialize output array of sellerProceeds\n\t\tuint256[] memory output = new uint256[](_bidderAddresses.length);\n\t\t// Iteratively sell NFTs to bidder\n\t\tfor (uint256 i = 0; i < _bidderAddresses.length; i++) {\n\t\t\toutput[i] = hitBid(_bidderAddresses[i], _nftAddress, _tokenIds[i], _expectedWeiPriceEach[i]);\n\t\t}\n\t\t// Return completed array of seller proceeds\n\t\treturn output;\n\t}\n\n\t/// @dev Allows owner to change platformFee\n\t/// @param _newPlatformFee New platform fee\n\tfunction changePlatformFee(uint _newPlatformFee) external onlyOwner {\n\t\tplatformFee = _newPlatformFee;\n\t}\n\n\t/// @dev OpenZeppelin sendValue function\n\t/// @param recipient Address receiving funds\n\t/// @param amount Amount of funds being sent\n\tfunction sendValue(address payable recipient, uint256 amount) internal {\n\t\trequire(address(this).balance >= amount, \"Address: insufficient balance\");\n\t\t(bool success, ) = recipient.call{ value: amount }(\"\");\n\t\trequire(success, \"Address: unable to send value, recipient may have reverted\");\n\t}\n\n\t/// @dev Getter function to display a single bid on front-end\n\t/// @param _bidderAddress Address of bidder\n\t/// @param _nftAddress Address of collection to which the bid applies\n\t/// @return Desired bid\n\tfunction getBid(address _bidderAddress, address _nftAddress) external view returns (Bid memory) {\n\t\treturn bids[_bidderAddress][_nftAddress];\n\t}\n\n\t/// @dev Getter function to display multipl bids on front-end\n\t/// @param _bidderAddresses Array of bidders\n\t/// @param _nftAddresses Array of collections to which each bid (respectively) applies\n\t/// @return Array of desired bids\n\tfunction getBids(address[] memory _bidderAddresses, address[] memory _nftAddresses) external view returns (Bid[] memory) {\n\t\tBid[] memory output = new Bid[](_bidderAddresses.length);\n\t\tfor (uint i = 0; i < _bidderAddresses.length; i++) {\n\t\t\toutput[i] = bids[_bidderAddresses[i]][_nftAddresses[i]];\n\t\t}\n\t\treturn output;\n\t}\n\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ninterface IERC721 {\n\tfunction safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;\n}\ninterface CryptopunkInterface {\n\tfunction transferPunk(address _to, uint _tokenId) external;\n}\n\n/// @title A contract enabling bidders to bid on any NFT in a given collection, and holders to sell any NFT from that collection into such a bid\n/// @author Kamil Alizai Sadik\ncontract LiquidityFactory is Ownable {\n\n\t// Set owner wallet as payable\n\taddress payable OWNER = payable(owner());\n\t// Percentage platform fee paid by the seller, in basis points\n\tuint256 public platformFee = 200;\n\n\t// Event that fires when a new bid is submitted\n\tevent NewBid(address indexed bidderAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\t// Event that fires when a bid is canceled\n\tevent BidCanceled(address indexed bidderAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\t// Event that fires when a bid is hit\n\tevent NewTrade(address indexed bidderAddress, address indexed sellerAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);\n\n\t// Struct containing Bid attributes\n\tstruct Bid {\n\t\tuint256 weiPriceEach;\n\t\tuint256 quantity;\n\t}\n\n\t// Array of all bids (bidder => NFT collection address => Bid {weiPriceEach, quantity})\n\tmapping(address => mapping(address => Bid)) bids;\n\n\t/// @dev Creates a new bid\n\t/// @param _nftAddress Address of desired NFT collection\n\t/// @param _quantity Quantity of desired NFT\n\tfunction submitBid(address _nftAddress, uint _quantity) external payable {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[msg.sender][_nftAddress];\n\t\t// Require that bidder does not already have a bid on this collection\n\t\trequire(bid.quantity == 0, \"Cancel existing bid before placing a new one.\");\n\t\t// Require that message value is > 0\n\t\trequire (msg.value > 0, \"Bid value must exceed 0 ETH.\");\n\t\t// Compute value of each bid, in wei\n\t\tuint256 weiPriceEach = uint256(msg.value) / _quantity;\n\t\t// Update bids mapping\n\t\tbids[msg.sender][_nftAddress].weiPriceEach = weiPriceEach;\n\t\tbids[msg.sender][_nftAddress].quantity = _quantity;\n\t\t// Emit bid creation event\n\t\temit NewBid(msg.sender, _nftAddress, weiPriceEach, _quantity, 0);\n\t}\n\n\t/// @dev Cancels a bid\n\t/// @param _nftAddress Address of NFT collection for which bid is being canceled\n\tfunction cancelBid(address _nftAddress) external {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[msg.sender][_nftAddress];\n\t\t// Compute refund\n\t\tuint256 refund = bid.weiPriceEach * bid.quantity;\n\t\t// Require that bidder is due a refund\n\t\trequire(refund != 0, \"You have no live bids for this collection.\");\n\t\t// Delete bid\n\t\tdelete bids[msg.sender][_nftAddress];\n\t\t// Refund bidder\n\t\tsendValue(payable(msg.sender), refund);\n\t\t// Emit bid cancelation event\n\t\temit BidCanceled(msg.sender, _nftAddress, bid.weiPriceEach, bid.quantity, 0);\n\t}\n\n\t/// @dev Sells an NFT into a bid (i.e., \"hits\" the bid)\n\t/// @param _bidderAddress Address of the bidder\n\t/// @param _nftAddress Address of collection to which the bid applies\n\t/// @param _tokenId Token id of the NFT in question\n\t/// @param _expectedWeiPriceEach Price (in wei) that seller expects to receive for each NFT\n\t/// @return Proceeds remitted to seller\n\tfunction hitBid(address _bidderAddress,address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {\n\t\t// Initialize bid\n\t\tBid memory bid = bids[_bidderAddress][_nftAddress];\n\t\t// Require that bid exists\n\t\trequire(bid.quantity > 0, \"This bid does not exist.\");\n\t\t// Require that bid amount is at least what the seller expects\n\t\trequire(bid.weiPriceEach >= _expectedWeiPriceEach, \"Bid is insufficient.\");\n\t\t// Decrement bidder's bid quantity for this collection\n\t\tbids[_bidderAddress][_nftAddress].quantity = bid.quantity - 1;\n\t\t// Compute platform fee proceeds\n\t\tuint256 platformFeeProceeds = bid.weiPriceEach * platformFee / 10000;\n\t\t// Remit platform fee proceeds to owner\n\t\tsendValue(OWNER, platformFeeProceeds);\n\t\t// Transfer NFT to bidder\n\t\t// Check whether _nftAddress is Cryptopunks address\n\t\tif (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {\n\t\t\tCryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);\n\t\t} else {\n\t\t\tIERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);\n\t\t}\n\t\t// Compute seller proceeds\n\t\tuint256 sellerProceeds = bid.weiPriceEach - platformFeeProceeds;\n\t\t// Remit seller proceeds to seller\n\t\tsendValue(payable(msg.sender), sellerProceeds);\n\t\t// Emit new trade event\n\t\temit NewTrade(_bidderAddress, msg.sender, _nftAddress, bid.weiPriceEach, 1, _tokenId);\n\t\t// Return seller proceeds\n\t\treturn sellerProceeds;\n\t}\n\n\t/// @dev Sells multiple NFTs into multiple bids (i.e., \"hits\" multiple bids)\n\t/// @param _bidderAddresses Array of addresses of bidders\n\t/// @param _nftAddress Address of collection to which the bids apply\n\t/// @param _tokenIds Array of token ids of the NFTs in question\n\t/// @param _expectedWeiPriceEach Array of prices (in wei) that seller expects to receive for each NFT\n\t/// @return Array of proceeds remitted to seller for each sold NFT\n\tfunction hitMultipleBids(address[] memory _bidderAddresses, address _nftAddress, uint256[] memory _tokenIds, uint256[] memory _expectedWeiPriceEach) external returns (uint256[] memory){\n\t\t// Check that number of bids matches number of expected sales\n\t\trequire(_bidderAddresses.length == _tokenIds.length && _tokenIds.length == _expectedWeiPriceEach.length, \"Mismatching array lengths\");\n\t\t// Initialize output array of sellerProceeds\n\t\tuint256[] memory output = new uint256[](_bidderAddresses.length);\n\t\t// Iteratively sell NFTs to bidder\n\t\tfor (uint256 i = 0; i < _bidderAddresses.length; i++) {\n\t\t\toutput[i] = hitBid(_bidderAddresses[i], _nftAddress, _tokenIds[i], _expectedWeiPriceEach[i]);\n\t\t}\n\t\t// Return completed array of seller proceeds\n\t\treturn output;\n\t}\n\n\t/// @dev Allows owner to change platformFee\n\t/// @param _newPlatformFee New platform fee\n\tfunction changePlatformFee(uint _newPlatformFee) external onlyOwner {\n\t\tplatformFee = _newPlatformFee;\n\t}\n\n\t/// @dev OpenZeppelin sendValue function\n\t/// @param recipient Address receiving funds\n\t/// @param amount Amount of funds being sent\n\tfunction sendValue(address payable recipient, uint256 amount) internal {\n\t\trequire(address(this).balance >= amount, \"Address: insufficient balance\");\n\t\t(bool success, ) = recipient.call{ value: amount }(\"\");\n\t\trequire(success, \"Address: unable to send value, recipient may have reverted\");\n\t}\n\n\t/// @dev Getter function to display a single bid on front-end\n\t/// @param _bidderAddress Address of bidder\n\t/// @param _nftAddress Address of collection to which the bid applies\n\t/// @return Desired bid\n\tfunction getBid(address _bidderAddress, address _nftAddress) external view returns (Bid memory) {\n\t\treturn bids[_bidderAddress][_nftAddress];\n\t}\n\n\t/// @dev Getter function to display multiple bids on front-end\n\t/// @param _bidderAddresses Array of bidders\n\t/// @param _nftAddresses Array of collections to which each bid (respectively) applies\n\t/// @return Array of desired bids\n\tfunction getBids(address[] memory _bidderAddresses, address[] memory _nftAddresses) external view returns (Bid[] memory) {\n\t\tBid[] memory output = new Bid[](_bidderAddresses.length);\n\t\tfor (uint i = 0; i < _bidderAddresses.length; i++) {\n\t\t\toutput[i] = bids[_bidderAddresses[i]][_nftAddresses[i]];\n\t\t}\n\t\treturn output;\n\t}\n\n}\n",
   "sourcePath": "/Users/kamilalizaisadik/DeFi/Floorquidity/contracts/LiquidityFactory.sol",
   "ast": {
     "absolutePath": "project:/contracts/LiquidityFactory.sol",
@@ -6308,7 +6308,7 @@
             "body": {
               "id": 668,
               "nodeType": "Block",
-              "src": "7329:200:2",
+              "src": "7330:200:2",
               "statements": [
                 {
                   "assignments": [
@@ -6320,10 +6320,10 @@
                       "id": 630,
                       "mutability": "mutable",
                       "name": "output",
-                      "nameLocation": "7346:6:2",
+                      "nameLocation": "7347:6:2",
                       "nodeType": "VariableDeclaration",
                       "scope": 668,
-                      "src": "7333:19:2",
+                      "src": "7334:19:2",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -6339,10 +6339,10 @@
                             "name": "Bid",
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 209,
-                            "src": "7333:3:2"
+                            "src": "7334:3:2"
                           },
                           "referencedDeclaration": 209,
-                          "src": "7333:3:2",
+                          "src": "7334:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                             "typeString": "struct LiquidityFactory.Bid"
@@ -6350,7 +6350,7 @@
                         },
                         "id": 629,
                         "nodeType": "ArrayTypeName",
-                        "src": "7333:5:2",
+                        "src": "7334:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                           "typeString": "struct LiquidityFactory.Bid[]"
@@ -6369,7 +6369,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 616,
-                          "src": "7365:16:2",
+                          "src": "7366:16:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                             "typeString": "address[] memory"
@@ -6382,7 +6382,7 @@
                         "lValueRequested": false,
                         "memberName": "length",
                         "nodeType": "MemberAccess",
-                        "src": "7365:23:2",
+                        "src": "7366:23:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -6402,7 +6402,7 @@
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "NewExpression",
-                      "src": "7355:9:2",
+                      "src": "7356:9:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr_$",
                         "typeString": "function (uint256) pure returns (struct LiquidityFactory.Bid memory[] memory)"
@@ -6416,10 +6416,10 @@
                             "name": "Bid",
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 209,
-                            "src": "7359:3:2"
+                            "src": "7360:3:2"
                           },
                           "referencedDeclaration": 209,
-                          "src": "7359:3:2",
+                          "src": "7360:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                             "typeString": "struct LiquidityFactory.Bid"
@@ -6427,7 +6427,7 @@
                         },
                         "id": 633,
                         "nodeType": "ArrayTypeName",
-                        "src": "7359:5:2",
+                        "src": "7360:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                           "typeString": "struct LiquidityFactory.Bid[]"
@@ -6442,7 +6442,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "7355:34:2",
+                    "src": "7356:34:2",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
@@ -6450,13 +6450,13 @@
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "7333:56:2"
+                  "src": "7334:56:2"
                 },
                 {
                   "body": {
                     "id": 664,
                     "nodeType": "Block",
-                    "src": "7444:65:2",
+                    "src": "7445:65:2",
                     "statements": [
                       {
                         "expression": {
@@ -6472,7 +6472,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 630,
-                              "src": "7449:6:2",
+                              "src": "7450:6:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
                                 "typeString": "struct LiquidityFactory.Bid memory[] memory"
@@ -6485,7 +6485,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 640,
-                              "src": "7456:1:2",
+                              "src": "7457:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
@@ -6496,7 +6496,7 @@
                             "isPure": false,
                             "lValueRequested": true,
                             "nodeType": "IndexAccess",
-                            "src": "7449:9:2",
+                            "src": "7450:9:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Bid_$209_memory_ptr",
                               "typeString": "struct LiquidityFactory.Bid memory"
@@ -6512,7 +6512,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 216,
-                                "src": "7461:4:2",
+                                "src": "7462:4:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_struct$_Bid_$209_storage_$_$",
                                   "typeString": "mapping(address => mapping(address => struct LiquidityFactory.Bid storage ref))"
@@ -6526,7 +6526,7 @@
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 616,
-                                  "src": "7466:16:2",
+                                  "src": "7467:16:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                     "typeString": "address[] memory"
@@ -6539,7 +6539,7 @@
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 640,
-                                  "src": "7483:1:2",
+                                  "src": "7484:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
                                     "typeString": "uint256"
@@ -6550,7 +6550,7 @@
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "nodeType": "IndexAccess",
-                                "src": "7466:19:2",
+                                "src": "7467:19:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_address",
                                   "typeString": "address"
@@ -6561,7 +6561,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "7461:25:2",
+                              "src": "7462:25:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Bid_$209_storage_$",
                                 "typeString": "mapping(address => struct LiquidityFactory.Bid storage ref)"
@@ -6575,7 +6575,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 619,
-                                "src": "7487:13:2",
+                                "src": "7488:13:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                   "typeString": "address[] memory"
@@ -6588,7 +6588,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 640,
-                                "src": "7501:1:2",
+                                "src": "7502:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
@@ -6599,7 +6599,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "7487:16:2",
+                              "src": "7488:16:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -6610,13 +6610,13 @@
                             "isPure": false,
                             "lValueRequested": false,
                             "nodeType": "IndexAccess",
-                            "src": "7461:43:2",
+                            "src": "7462:43:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Bid_$209_storage",
                               "typeString": "struct LiquidityFactory.Bid storage ref"
                             }
                           },
-                          "src": "7449:55:2",
+                          "src": "7450:55:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_memory_ptr",
                             "typeString": "struct LiquidityFactory.Bid memory"
@@ -6624,7 +6624,7 @@
                         },
                         "id": 663,
                         "nodeType": "ExpressionStatement",
-                        "src": "7449:55:2"
+                        "src": "7450:55:2"
                       }
                     ]
                   },
@@ -6644,7 +6644,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 640,
-                      "src": "7410:1:2",
+                      "src": "7411:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -6659,7 +6659,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 616,
-                        "src": "7414:16:2",
+                        "src": "7415:16:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
@@ -6672,13 +6672,13 @@
                       "lValueRequested": false,
                       "memberName": "length",
                       "nodeType": "MemberAccess",
-                      "src": "7414:23:2",
+                      "src": "7415:23:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "7410:27:2",
+                    "src": "7411:27:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -6695,10 +6695,10 @@
                         "id": 640,
                         "mutability": "mutable",
                         "name": "i",
-                        "nameLocation": "7403:1:2",
+                        "nameLocation": "7404:1:2",
                         "nodeType": "VariableDeclaration",
                         "scope": 665,
-                        "src": "7398:6:2",
+                        "src": "7399:6:2",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -6709,7 +6709,7 @@
                           "id": 639,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
-                          "src": "7398:4:2",
+                          "src": "7399:4:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -6728,7 +6728,7 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "7407:1:2",
+                      "src": "7408:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
                         "typeString": "int_const 0"
@@ -6736,7 +6736,7 @@
                       "value": "0"
                     },
                     "nodeType": "VariableDeclarationStatement",
-                    "src": "7398:10:2"
+                    "src": "7399:10:2"
                   },
                   "loopExpression": {
                     "expression": {
@@ -6748,14 +6748,14 @@
                       "nodeType": "UnaryOperation",
                       "operator": "++",
                       "prefix": false,
-                      "src": "7439:3:2",
+                      "src": "7440:3:2",
                       "subExpression": {
                         "id": 647,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 640,
-                        "src": "7439:1:2",
+                        "src": "7440:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -6768,10 +6768,10 @@
                     },
                     "id": 649,
                     "nodeType": "ExpressionStatement",
-                    "src": "7439:3:2"
+                    "src": "7440:3:2"
                   },
                   "nodeType": "ForStatement",
-                  "src": "7393:116:2"
+                  "src": "7394:116:2"
                 },
                 {
                   "expression": {
@@ -6780,7 +6780,7 @@
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
                     "referencedDeclaration": 630,
-                    "src": "7519:6:2",
+                    "src": "7520:6:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
                       "typeString": "struct LiquidityFactory.Bid memory[] memory"
@@ -6789,15 +6789,15 @@
                   "functionReturnParameters": 625,
                   "id": 667,
                   "nodeType": "Return",
-                  "src": "7512:13:2"
+                  "src": "7513:13:2"
                 }
               ]
             },
             "documentation": {
               "id": 613,
               "nodeType": "StructuredDocumentation",
-              "src": "6976:230:2",
-              "text": "@dev Getter function to display multipl bids on front-end\n @param _bidderAddresses Array of bidders\n @param _nftAddresses Array of collections to which each bid (respectively) applies\n @return Array of desired bids"
+              "src": "6976:231:2",
+              "text": "@dev Getter function to display multiple bids on front-end\n @param _bidderAddresses Array of bidders\n @param _nftAddresses Array of collections to which each bid (respectively) applies\n @return Array of desired bids"
             },
             "functionSelector": "5646ad45",
             "id": 669,
@@ -6805,7 +6805,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getBids",
-            "nameLocation": "7217:7:2",
+            "nameLocation": "7218:7:2",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 620,
@@ -6816,10 +6816,10 @@
                   "id": 616,
                   "mutability": "mutable",
                   "name": "_bidderAddresses",
-                  "nameLocation": "7242:16:2",
+                  "nameLocation": "7243:16:2",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7225:33:2",
+                  "src": "7226:33:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -6831,7 +6831,7 @@
                       "id": 614,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "7225:7:2",
+                      "src": "7226:7:2",
                       "stateMutability": "nonpayable",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -6840,7 +6840,7 @@
                     },
                     "id": 615,
                     "nodeType": "ArrayTypeName",
-                    "src": "7225:9:2",
+                    "src": "7226:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -6853,10 +6853,10 @@
                   "id": 619,
                   "mutability": "mutable",
                   "name": "_nftAddresses",
-                  "nameLocation": "7277:13:2",
+                  "nameLocation": "7278:13:2",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7260:30:2",
+                  "src": "7261:30:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -6868,7 +6868,7 @@
                       "id": 617,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "7260:7:2",
+                      "src": "7261:7:2",
                       "stateMutability": "nonpayable",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -6877,7 +6877,7 @@
                     },
                     "id": 618,
                     "nodeType": "ArrayTypeName",
-                    "src": "7260:9:2",
+                    "src": "7261:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -6886,7 +6886,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "7224:67:2"
+              "src": "7225:67:2"
             },
             "returnParameters": {
               "id": 625,
@@ -6900,7 +6900,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7315:12:2",
+                  "src": "7316:12:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -6916,10 +6916,10 @@
                         "name": "Bid",
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 209,
-                        "src": "7315:3:2"
+                        "src": "7316:3:2"
                       },
                       "referencedDeclaration": 209,
-                      "src": "7315:3:2",
+                      "src": "7316:3:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                         "typeString": "struct LiquidityFactory.Bid"
@@ -6927,7 +6927,7 @@
                     },
                     "id": 623,
                     "nodeType": "ArrayTypeName",
-                    "src": "7315:5:2",
+                    "src": "7316:5:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                       "typeString": "struct LiquidityFactory.Bid[]"
@@ -6936,21 +6936,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "7314:14:2"
+              "src": "7315:14:2"
             },
             "scope": 670,
-            "src": "7208:321:2",
+            "src": "7209:321:2",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 671,
-        "src": "496:7036:2",
+        "src": "496:7037:2",
         "usedErrors": []
       }
     ],
-    "src": "32:7501:2"
+    "src": "32:7502:2"
   },
   "legacyAST": {
     "absolutePath": "project:/contracts/LiquidityFactory.sol",
@@ -13225,7 +13225,7 @@
             "body": {
               "id": 668,
               "nodeType": "Block",
-              "src": "7329:200:2",
+              "src": "7330:200:2",
               "statements": [
                 {
                   "assignments": [
@@ -13237,10 +13237,10 @@
                       "id": 630,
                       "mutability": "mutable",
                       "name": "output",
-                      "nameLocation": "7346:6:2",
+                      "nameLocation": "7347:6:2",
                       "nodeType": "VariableDeclaration",
                       "scope": 668,
-                      "src": "7333:19:2",
+                      "src": "7334:19:2",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
@@ -13256,10 +13256,10 @@
                             "name": "Bid",
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 209,
-                            "src": "7333:3:2"
+                            "src": "7334:3:2"
                           },
                           "referencedDeclaration": 209,
-                          "src": "7333:3:2",
+                          "src": "7334:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                             "typeString": "struct LiquidityFactory.Bid"
@@ -13267,7 +13267,7 @@
                         },
                         "id": 629,
                         "nodeType": "ArrayTypeName",
-                        "src": "7333:5:2",
+                        "src": "7334:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                           "typeString": "struct LiquidityFactory.Bid[]"
@@ -13286,7 +13286,7 @@
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
                           "referencedDeclaration": 616,
-                          "src": "7365:16:2",
+                          "src": "7366:16:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                             "typeString": "address[] memory"
@@ -13299,7 +13299,7 @@
                         "lValueRequested": false,
                         "memberName": "length",
                         "nodeType": "MemberAccess",
-                        "src": "7365:23:2",
+                        "src": "7366:23:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -13319,7 +13319,7 @@
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "NewExpression",
-                      "src": "7355:9:2",
+                      "src": "7356:9:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr_$",
                         "typeString": "function (uint256) pure returns (struct LiquidityFactory.Bid memory[] memory)"
@@ -13333,10 +13333,10 @@
                             "name": "Bid",
                             "nodeType": "IdentifierPath",
                             "referencedDeclaration": 209,
-                            "src": "7359:3:2"
+                            "src": "7360:3:2"
                           },
                           "referencedDeclaration": 209,
-                          "src": "7359:3:2",
+                          "src": "7360:3:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                             "typeString": "struct LiquidityFactory.Bid"
@@ -13344,7 +13344,7 @@
                         },
                         "id": 633,
                         "nodeType": "ArrayTypeName",
-                        "src": "7359:5:2",
+                        "src": "7360:5:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                           "typeString": "struct LiquidityFactory.Bid[]"
@@ -13359,7 +13359,7 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "7355:34:2",
+                    "src": "7356:34:2",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
@@ -13367,13 +13367,13 @@
                     }
                   },
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "7333:56:2"
+                  "src": "7334:56:2"
                 },
                 {
                   "body": {
                     "id": 664,
                     "nodeType": "Block",
-                    "src": "7444:65:2",
+                    "src": "7445:65:2",
                     "statements": [
                       {
                         "expression": {
@@ -13389,7 +13389,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 630,
-                              "src": "7449:6:2",
+                              "src": "7450:6:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
                                 "typeString": "struct LiquidityFactory.Bid memory[] memory"
@@ -13402,7 +13402,7 @@
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
                               "referencedDeclaration": 640,
-                              "src": "7456:1:2",
+                              "src": "7457:1:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
                                 "typeString": "uint256"
@@ -13413,7 +13413,7 @@
                             "isPure": false,
                             "lValueRequested": true,
                             "nodeType": "IndexAccess",
-                            "src": "7449:9:2",
+                            "src": "7450:9:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Bid_$209_memory_ptr",
                               "typeString": "struct LiquidityFactory.Bid memory"
@@ -13429,7 +13429,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 216,
-                                "src": "7461:4:2",
+                                "src": "7462:4:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_mapping$_t_address_$_t_mapping$_t_address_$_t_struct$_Bid_$209_storage_$_$",
                                   "typeString": "mapping(address => mapping(address => struct LiquidityFactory.Bid storage ref))"
@@ -13443,7 +13443,7 @@
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 616,
-                                  "src": "7466:16:2",
+                                  "src": "7467:16:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                     "typeString": "address[] memory"
@@ -13456,7 +13456,7 @@
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
                                   "referencedDeclaration": 640,
-                                  "src": "7483:1:2",
+                                  "src": "7484:1:2",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_uint256",
                                     "typeString": "uint256"
@@ -13467,7 +13467,7 @@
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "nodeType": "IndexAccess",
-                                "src": "7466:19:2",
+                                "src": "7467:19:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_address",
                                   "typeString": "address"
@@ -13478,7 +13478,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "7461:25:2",
+                              "src": "7462:25:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Bid_$209_storage_$",
                                 "typeString": "mapping(address => struct LiquidityFactory.Bid storage ref)"
@@ -13492,7 +13492,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 619,
-                                "src": "7487:13:2",
+                                "src": "7488:13:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                                   "typeString": "address[] memory"
@@ -13505,7 +13505,7 @@
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
                                 "referencedDeclaration": 640,
-                                "src": "7501:1:2",
+                                "src": "7502:1:2",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
@@ -13516,7 +13516,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "7487:16:2",
+                              "src": "7488:16:2",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
@@ -13527,13 +13527,13 @@
                             "isPure": false,
                             "lValueRequested": false,
                             "nodeType": "IndexAccess",
-                            "src": "7461:43:2",
+                            "src": "7462:43:2",
                             "typeDescriptions": {
                               "typeIdentifier": "t_struct$_Bid_$209_storage",
                               "typeString": "struct LiquidityFactory.Bid storage ref"
                             }
                           },
-                          "src": "7449:55:2",
+                          "src": "7450:55:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_struct$_Bid_$209_memory_ptr",
                             "typeString": "struct LiquidityFactory.Bid memory"
@@ -13541,7 +13541,7 @@
                         },
                         "id": 663,
                         "nodeType": "ExpressionStatement",
-                        "src": "7449:55:2"
+                        "src": "7450:55:2"
                       }
                     ]
                   },
@@ -13561,7 +13561,7 @@
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 640,
-                      "src": "7410:1:2",
+                      "src": "7411:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -13576,7 +13576,7 @@
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 616,
-                        "src": "7414:16:2",
+                        "src": "7415:16:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_array$_t_address_$dyn_memory_ptr",
                           "typeString": "address[] memory"
@@ -13589,13 +13589,13 @@
                       "lValueRequested": false,
                       "memberName": "length",
                       "nodeType": "MemberAccess",
-                      "src": "7414:23:2",
+                      "src": "7415:23:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "7410:27:2",
+                    "src": "7411:27:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -13612,10 +13612,10 @@
                         "id": 640,
                         "mutability": "mutable",
                         "name": "i",
-                        "nameLocation": "7403:1:2",
+                        "nameLocation": "7404:1:2",
                         "nodeType": "VariableDeclaration",
                         "scope": 665,
-                        "src": "7398:6:2",
+                        "src": "7399:6:2",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -13626,7 +13626,7 @@
                           "id": 639,
                           "name": "uint",
                           "nodeType": "ElementaryTypeName",
-                          "src": "7398:4:2",
+                          "src": "7399:4:2",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -13645,7 +13645,7 @@
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "7407:1:2",
+                      "src": "7408:1:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
                         "typeString": "int_const 0"
@@ -13653,7 +13653,7 @@
                       "value": "0"
                     },
                     "nodeType": "VariableDeclarationStatement",
-                    "src": "7398:10:2"
+                    "src": "7399:10:2"
                   },
                   "loopExpression": {
                     "expression": {
@@ -13665,14 +13665,14 @@
                       "nodeType": "UnaryOperation",
                       "operator": "++",
                       "prefix": false,
-                      "src": "7439:3:2",
+                      "src": "7440:3:2",
                       "subExpression": {
                         "id": 647,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
                         "referencedDeclaration": 640,
-                        "src": "7439:1:2",
+                        "src": "7440:1:2",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -13685,10 +13685,10 @@
                     },
                     "id": 649,
                     "nodeType": "ExpressionStatement",
-                    "src": "7439:3:2"
+                    "src": "7440:3:2"
                   },
                   "nodeType": "ForStatement",
-                  "src": "7393:116:2"
+                  "src": "7394:116:2"
                 },
                 {
                   "expression": {
@@ -13697,7 +13697,7 @@
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
                     "referencedDeclaration": 630,
-                    "src": "7519:6:2",
+                    "src": "7520:6:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_memory_ptr_$dyn_memory_ptr",
                       "typeString": "struct LiquidityFactory.Bid memory[] memory"
@@ -13706,15 +13706,15 @@
                   "functionReturnParameters": 625,
                   "id": 667,
                   "nodeType": "Return",
-                  "src": "7512:13:2"
+                  "src": "7513:13:2"
                 }
               ]
             },
             "documentation": {
               "id": 613,
               "nodeType": "StructuredDocumentation",
-              "src": "6976:230:2",
-              "text": "@dev Getter function to display multipl bids on front-end\n @param _bidderAddresses Array of bidders\n @param _nftAddresses Array of collections to which each bid (respectively) applies\n @return Array of desired bids"
+              "src": "6976:231:2",
+              "text": "@dev Getter function to display multiple bids on front-end\n @param _bidderAddresses Array of bidders\n @param _nftAddresses Array of collections to which each bid (respectively) applies\n @return Array of desired bids"
             },
             "functionSelector": "5646ad45",
             "id": 669,
@@ -13722,7 +13722,7 @@
             "kind": "function",
             "modifiers": [],
             "name": "getBids",
-            "nameLocation": "7217:7:2",
+            "nameLocation": "7218:7:2",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 620,
@@ -13733,10 +13733,10 @@
                   "id": 616,
                   "mutability": "mutable",
                   "name": "_bidderAddresses",
-                  "nameLocation": "7242:16:2",
+                  "nameLocation": "7243:16:2",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7225:33:2",
+                  "src": "7226:33:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -13748,7 +13748,7 @@
                       "id": 614,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "7225:7:2",
+                      "src": "7226:7:2",
                       "stateMutability": "nonpayable",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -13757,7 +13757,7 @@
                     },
                     "id": 615,
                     "nodeType": "ArrayTypeName",
-                    "src": "7225:9:2",
+                    "src": "7226:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -13770,10 +13770,10 @@
                   "id": 619,
                   "mutability": "mutable",
                   "name": "_nftAddresses",
-                  "nameLocation": "7277:13:2",
+                  "nameLocation": "7278:13:2",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7260:30:2",
+                  "src": "7261:30:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -13785,7 +13785,7 @@
                       "id": 617,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "7260:7:2",
+                      "src": "7261:7:2",
                       "stateMutability": "nonpayable",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -13794,7 +13794,7 @@
                     },
                     "id": 618,
                     "nodeType": "ArrayTypeName",
-                    "src": "7260:9:2",
+                    "src": "7261:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -13803,7 +13803,7 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "7224:67:2"
+              "src": "7225:67:2"
             },
             "returnParameters": {
               "id": 625,
@@ -13817,7 +13817,7 @@
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
                   "scope": 669,
-                  "src": "7315:12:2",
+                  "src": "7316:12:2",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
@@ -13833,10 +13833,10 @@
                         "name": "Bid",
                         "nodeType": "IdentifierPath",
                         "referencedDeclaration": 209,
-                        "src": "7315:3:2"
+                        "src": "7316:3:2"
                       },
                       "referencedDeclaration": 209,
-                      "src": "7315:3:2",
+                      "src": "7316:3:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Bid_$209_storage_ptr",
                         "typeString": "struct LiquidityFactory.Bid"
@@ -13844,7 +13844,7 @@
                     },
                     "id": 623,
                     "nodeType": "ArrayTypeName",
-                    "src": "7315:5:2",
+                    "src": "7316:5:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_struct$_Bid_$209_storage_$dyn_storage_ptr",
                       "typeString": "struct LiquidityFactory.Bid[]"
@@ -13853,21 +13853,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "7314:14:2"
+              "src": "7315:14:2"
             },
             "scope": 670,
-            "src": "7208:321:2",
+            "src": "7209:321:2",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
         "scope": 671,
-        "src": "496:7036:2",
+        "src": "496:7037:2",
         "usedErrors": []
       }
     ],
-    "src": "32:7501:2"
+    "src": "32:7502:2"
   },
   "compiler": {
     "name": "solc",
@@ -13875,7 +13875,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-01-03T01:28:31.475Z",
+  "updatedAt": "2022-01-03T01:43:57.211Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

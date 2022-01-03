@@ -12,7 +12,7 @@ contract("LiquidityFactory", (accounts) => {
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
   });
 
-  context("as a bidder, bidding on an ERC-721 collection", async () => {
+  xcontext("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
         // bidder is bidding 0.1 ETH for 1 BAYC
         const result = await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -66,7 +66,18 @@ contract("LiquidityFactory", (accounts) => {
   })
 
   context("as a seller, selling an NFT from an ERC-721 collection", async () => {
-    xit("should be able to sell a single NFT into a bid for a single NFT", async () => {
+    it("should be able to sell a single NFT into a bid for a single NFT", async () => {
+      // bidder bids 0.000001 ETH for 1 BAYC
+      await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller sells 1 BAYC into bid
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 0, 1000000000000, {from: seller});
+      assert.equal(result.receipt.status, true);
+      //assert.equal(result.logs[0].args.bidderAddress, bidder);
+      //assert.equal(result.logs[0].args.sellerAddress, seller);
+      //assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
+      //assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
+      //assert.equal(result.logs[0].args.quantity, 1);
+      //assert.equal(result.logs[0].args.tokenId, 250);
     });
     xit("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
     });
@@ -80,7 +91,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as a bidder, bidding on a Cryptopunk", async () => {
+  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -113,7 +124,7 @@ contract("LiquidityFactory", (accounts) => {
       // bidder is trying to bid 0.1 ETH for 1 Cryptopunk again
       await utils.shouldThrow(contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000}));
     });
-    xit("should be able to place a bid, cancel a bid, and place a new bid", async () => {
+    it("should be able to place a bid, cancel a bid, and place a new bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});
       // bidder is canceling Cryptopunk bid
@@ -134,17 +145,17 @@ contract("LiquidityFactory", (accounts) => {
   })
 
   context("as a seller, selling a Cryptopunk", async () => {
-    xit("should be able to sell a single NFT into a bid for a single NFT", async () => {
+    xit("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
     });
-    xit("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
+    xit("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
     });
-    xit("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
+    xit("should not be able to sell multiple Cryptopunks into a bid for a single Cryptopunk", async () => {
     });
-    xit("should be able to sell a single NFT into a bid for multiple NFTs", async () => {
+    xit("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunk", async () => {
     });
-    xit("should be able to sell a single NFT into a bid for multiple NFTs, and subsequently sell additional NFTs into that bid", async () => {
+    xit("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks, and subsequently sell additional Cryptopunks into that bid", async () => {
     });
-    xit("should not be able to sell into a bid that has been canceled", async () => {
+    xit("should not be able to sell a Cryptopunk into a bid that has been canceled", async () => {
     });
   })
 

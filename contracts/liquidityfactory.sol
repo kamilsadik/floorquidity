@@ -77,7 +77,7 @@ contract LiquidityFactory is Ownable {
 	/// @param _tokenId Token id of the NFT in question
 	/// @param _expectedWeiPriceEach Price (in wei) that seller expects to receive for each NFT
 	/// @return Proceeds remitted to seller
-	function hitBid(address _bidderAddress,address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {
+	function hitBid(address _bidderAddress, address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {
 		// Initialize bid
 		Bid memory bid = bids[_bidderAddress][_nftAddress];
 		// Require that bid exists

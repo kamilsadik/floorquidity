@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 interface IERC721 {
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }
-interface CPInterface {
+interface CryptopunkInterface {
 	function transferPunk(address _to, uint _tokenId) external;
 }
 
@@ -93,7 +93,7 @@ contract LiquidityFactory is Ownable {
 		// Transfer NFT to bidder
 		// Check whether _nftAddress is Cryptopunks address
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
-			CPInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
+			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
 		} else {
 			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		}

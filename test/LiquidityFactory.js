@@ -70,7 +70,8 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 BAYC into bid
-      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 0, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller});
+      assert.equal(result.receipt.status, 1000000000000);
       assert.equal(result.receipt.status, true);
       //assert.equal(result.logs[0].args.bidderAddress, bidder);
       //assert.equal(result.logs[0].args.sellerAddress, seller);

@@ -7,9 +7,18 @@ const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const DOODLE_ADDRESS = "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e";
 
 // Holder addresses
+// Cryptopunk
 const CRYPTOPUNK_HOLDER = "0xa25803ab86A327786Bb59395fC0164D826B98298";
+const CRYPTOPUNK_HOLDINGS_FIVE = [3013, 3505, 9294, 9360, 9382];
+const CRYPTOPUNK_HOLDINGS_ONE = 3013;
+// BAYC
 const BAYC_HOLDER = "0x54BE3a794282C030b15E43aE2bB182E14c409C5e";
+const BAYC_HOLDINGS_FIVE = [1044, 864, 857, 188, 863];
+const BAYC_HOLDINGS_ONE = 1044;
+// Doodle
 const DOODLE_HOLDER = "0xC35f3F92A9F27A157B309a9656CfEA30E5C9cCe3";
+const DOODLE_HOLDINGS_FIVE = [6230, 9083, 5604, 5603, 5599];
+const DOODLE_HOLDINGS_ONE = 6230;
 
 contract("LiquidityFactory", (accounts) => {
 
@@ -89,51 +98,51 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 BAYC into bid
-      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 914, 1000000000000, {from: BAYC_HOLDER});
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
       assert.equal(result.logs[0].args.sellerAddress, BAYC_HOLDER);
       assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
-      assert.equal(result.logs[0].args.tokenId, 914);
+      assert.equal(result.logs[0].args.tokenId, BAYC_HOLDINGS_ONE);
     });
     xit("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 BAYC into bid, but doesn't because the bid is less than expected
-      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 2000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 2000000000000, {from: BAYC_HOLDER}));
     });
     xit("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Doodle into bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER}));
     });
     xit("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 2 BAYC into bid
-      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, [250, 251], 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE.slice(1), 1000000000000, {from: BAYC_HOLDER}));
     });
     xit("should be able to sell a single NFT into a bid for multiple NFTs", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 1 BAYC into bid
-      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, seller);
+      assert.equal(result.logs[0].args.sellerAddress, BAYC_HOLDER);
       assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
-      assert.equal(result.logs[0].args.tokenId, 250);
+      assert.equal(result.logs[0].args.tokenId, BAYC_HOLDINGS_ONE);
     });
     xit("should be able to sell N NFTs into a bid for M NFTs, where N<M", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 2 BAYC into bid
-      const result = await contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, [250, 251], 1000000000000, {from: seller});
+      const result = await contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE.slice(1), 1000000000000, {from: BAYC_HOLDER});
       assert.equal(result.receipt.status, true);
       //TODO: other NewTrade event-related checks
     });
@@ -143,11 +152,11 @@ contract("LiquidityFactory", (accounts) => {
       // bidder is canceling BAYC bid
       await contractInstance.cancelBid(BAYC_ADDRESS, {from: bidder});
       // seller is trying to sell into canceled bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER}));
     });
     xit("should not be able to sell into a bid that does not exist", async () => {
       // seller is trying to sell into a nonexistent bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER}));
     });
   })
 
@@ -221,52 +230,52 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 Cryptopunk into bid
-      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
       assert.equal(result.receipt.status, 1000000000000);
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, seller);
+      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER);
       assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
-      assert.equal(result.logs[0].args.tokenId, 250);
+      assert.equal(result.logs[0].args.tokenId, CRYPTOPUNK_HOLDINGS_ONE);
     });
     it("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Cryptopunk into bid, but doesn't because the bid is less than expected
-      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 2000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 2000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
     it("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Doodle into bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER}));
     });
     it("should not be able to sell multiple Cryptopunks into a bid for one Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 2 Cryptopunks into bid
-      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, [250, 251], 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE.slice(1), 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
     it("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 Cryptopunk)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 1 Cryptopunk into bid
-      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, seller);
+      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER);
       assert.equal(result.logs[0].args.nftAddress, CRYPTOPUNK_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
-      assert.equal(result.logs[0].args.tokenId, 250);
+      assert.equal(result.logs[0].args.tokenId, CRYPTOPUNK_HOLDINGS_ONE);
     });
     it("should be able to sell N Cryptopunks into a bid for M Cryptopunks, where N<M", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 BAYC)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 2 Cryptopunks into bid
-      const result = await contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, [250, 251], 1000000000000, {from: seller});
+      const result = await contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE.slice(1), 1000000000000, {from: CRYPTOPUNK_HOLDER});
       assert.equal(result.receipt.status, true);
       //TODO: other NewTrade event-related checks
     });
@@ -276,11 +285,11 @@ contract("LiquidityFactory", (accounts) => {
       // bidder is canceling Cryptopunk bid
       await contractInstance.cancelBid(CRYPTOPUNK_ADDRESS, {from: bidder});
       // seller is trying to sell into canceled bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
     it("should not be able to sell into a bid that does not exist", async () => {
       // seller is trying to sell into a nonexistent bid
-      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 1000000000000, {from: seller}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
   })
 
@@ -294,7 +303,7 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 BAYC into bid
-      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER});
       let ownerBalancePost = await web3.eth.getBalance(owner);
       assert.equal(ownerBalancePre+20000000000, ownerBalancePost);
     });
@@ -303,7 +312,7 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 5 BAYC into bid
-      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], BAYC_ADDRESS, [250, 251, 252, 253, 254], 1000000000000, {from: seller});
+      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE, 1000000000000, {from: BAYC_HOLDER});
       let ownerBalancePost = await web3.eth.getBalance(owner);
       assert.equal(ownerBalancePre+100000000000, ownerBalancePost);
     });
@@ -312,7 +321,7 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 Cryptopunk into bid
-      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
       let ownerBalancePost = await web3.eth.getBalance(owner);
       assert.equal(ownerBalancePre+20000000000, ownerBalancePost);
     });
@@ -321,7 +330,7 @@ contract("LiquidityFactory", (accounts) => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 BAYC)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 5 Cryptopunks into bid
-      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], CRYPTOPUNK_ADDRESS, [250, 251, 252, 253, 254], 1000000000000, {from: seller});
+      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
       let ownerBalancePost = await web3.eth.getBalance(owner);
       assert.equal(ownerBalancePre+100000000000, ownerBalancePost);
     });

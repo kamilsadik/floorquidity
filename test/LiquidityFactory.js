@@ -1,9 +1,15 @@
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
 
+// Contract addresses
 const CRYPTOPUNK_ADDRESS = "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB";
 const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const DOODLE_ADDRESS = "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e";
+
+// Holder addresses
+const CRYPTOPUNK_HOLDER = "0xa25803ab86A327786Bb59395fC0164D826B98298";
+const BAYC_HOLDER = "0x54BE3a794282C030b15E43aE2bB182E14c409C5e";
+const DOODLE_HOLDER = "0xC35f3F92A9F27A157B309a9656CfEA30E5C9cCe3";
 
 contract("LiquidityFactory", (accounts) => {
 

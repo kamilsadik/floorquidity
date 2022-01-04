@@ -19,7 +19,7 @@ contract("LiquidityFactory", (accounts) => {
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
   });
 
-  context("as a bidder, bidding on an ERC-721 collection", async () => {
+  xcontext("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
         // bidder is bidding 0.1 ETH for 1 BAYC
         const result = await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -84,39 +84,39 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a seller, selling an NFT from an ERC-721 collection", async () => {
+  context("as a seller, selling an NFT from an ERC-721 collection", async () => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 BAYC into bid
-      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller});
+      const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, 914, 1000000000000, {from: BAYC_HOLDER});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, seller);
+      assert.equal(result.logs[0].args.sellerAddress, BAYC_HOLDER);
       assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
-      assert.equal(result.logs[0].args.tokenId, 250);
+      assert.equal(result.logs[0].args.tokenId, 914);
     });
-    it("should throw if bid amount is less than seller expects", async () => {
+    xit("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 BAYC into bid, but doesn't because the bid is less than expected
       await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 2000000000000, {from: seller}));
     });
-    it("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
+    xit("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Doodle into bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, 250, 1000000000000, {from: seller}));
     });
-    it("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
+    xit("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 2 BAYC into bid
       await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, [250, 251], 1000000000000, {from: seller}));
     });
-    it("should be able to sell a single NFT into a bid for multiple NFTs", async () => {
+    xit("should be able to sell a single NFT into a bid for multiple NFTs", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 1 BAYC into bid
@@ -129,7 +129,7 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.logs[0].args.quantity, 1);
       assert.equal(result.logs[0].args.tokenId, 250);
     });
-    it("should be able to sell N NFTs into a bid for M NFTs, where N<M", async () => {
+    xit("should be able to sell N NFTs into a bid for M NFTs, where N<M", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 2 BAYC into bid
@@ -137,7 +137,7 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.receipt.status, true);
       //TODO: other NewTrade event-related checks
     });
-    it("should not be able to sell into a bid that has been canceled", async () => {
+    xit("should not be able to sell into a bid that has been canceled", async () => {
       // bidder is bidding 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // bidder is canceling BAYC bid
@@ -145,13 +145,13 @@ contract("LiquidityFactory", (accounts) => {
       // seller is trying to sell into canceled bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller}));
     });
-    it("should not be able to sell into a bid that does not exist", async () => {
+    xit("should not be able to sell into a bid that does not exist", async () => {
       // seller is trying to sell into a nonexistent bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, 250, 1000000000000, {from: seller}));
     });
   })
 
-  context("as a bidder, bidding on a Cryptopunk", async () => {
+  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});

@@ -225,7 +225,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a seller, selling a Cryptopunk", async () => {
+  context("as a seller, selling a Cryptopunk", async () => {
     it("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
@@ -235,30 +235,30 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
       assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER);
-      assert.equal(result.logs[0].args.nftAddress, BAYC_ADDRESS);
+      assert.equal(result.logs[0].args.nftAddress, CRYPTOPUNK_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
       assert.equal(result.logs[0].args.tokenId, CRYPTOPUNK_HOLDINGS_ONE);
     });
-    it("should throw if bid amount is less than seller expects", async () => {
+    xit("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Cryptopunk into bid, but doesn't because the bid is less than expected
       await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 2000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
-    it("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
+    xit("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 1 Doodle into bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER}));
     });
-    it("should not be able to sell multiple Cryptopunks into a bid for one Cryptopunk", async () => {
+    xit("should not be able to sell multiple Cryptopunks into a bid for one Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller tries to sell 2 Cryptopunks into bid
       await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE.slice(1), 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
-    it("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks", async () => {
+    xit("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 Cryptopunk)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 1 Cryptopunk into bid
@@ -271,7 +271,7 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.logs[0].args.quantity, 1);
       assert.equal(result.logs[0].args.tokenId, CRYPTOPUNK_HOLDINGS_ONE);
     });
-    it("should be able to sell N Cryptopunks into a bid for M Cryptopunks, where N<M", async () => {
+    xit("should be able to sell N Cryptopunks into a bid for M Cryptopunks, where N<M", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 BAYC)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller sells 2 Cryptopunks into bid
@@ -279,7 +279,7 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.receipt.status, true);
       //TODO: other NewTrade event-related checks
     });
-    it("should not be able to sell a Cryptopunk into a bid that has been canceled", async () => {
+    xit("should not be able to sell a Cryptopunk into a bid that has been canceled", async () => {
       // bidder is bidding 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // bidder is canceling Cryptopunk bid
@@ -287,13 +287,13 @@ contract("LiquidityFactory", (accounts) => {
       // seller is trying to sell into canceled bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
-    it("should not be able to sell into a bid that does not exist", async () => {
+    xit("should not be able to sell into a bid that does not exist", async () => {
       // seller is trying to sell into a nonexistent bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER}));
     });
   })
 
-  context("as owner", async () => {
+  xcontext("as owner", async () => {
     it("should be able to invoke changePlatformFee", async () => {
       const result = await contractInstance.changePlatformFee(100, {from: owner});
       assert.equal(result.receipt.status, true);
@@ -352,7 +352,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as non-owner", async () => {
+  xcontext("as non-owner", async () => {
     it("should not be able to invoke changePlatformFee", async () => {
       await utils.shouldThrow(contractInstance.changePlatformFee(100, {from: bidder}));
     });

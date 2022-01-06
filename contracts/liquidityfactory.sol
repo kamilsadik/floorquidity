@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IERC721 {
+	function ownerOf(uint256 _tokenId) external;
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }
 interface CryptopunkInterface {
@@ -69,6 +70,15 @@ contract LiquidityFactory is Ownable {
 		sendValue(payable(msg.sender), refund);
 		// Emit bid cancelation event
 		emit BidCanceled(msg.sender, _nftAddress, bid.weiPriceEach, bid.quantity, 0);
+	}
+
+	/// @dev Hello
+	/// @param _nftAddress hello
+	/// @param _tokenId hello
+	/// @return address
+	function checkOwner(address _nftAddress, uint _tokenId) public view returns (address) {
+		address nftOwner = IERC721(_nftAddress).ownerOf(_tokenId);
+		return nftOwner;
 	}
 
 	/// @dev Sells an NFT into a bid (i.e., "hits" the bid)

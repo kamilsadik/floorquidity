@@ -95,7 +95,6 @@ contract("LiquidityFactory", (accounts) => {
 
   context("as a seller, selling an NFT from an ERC-721 collection", async () => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
-      console.log(await contractInstance.IERC721(BAYC_ADDRESS).ownerOf(BAYC_HOLDINGS_ONE));
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller sells 1 BAYC into bidder's bid

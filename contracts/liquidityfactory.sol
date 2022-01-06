@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IERC721 {
-	function ownerOf(uint256 _tokenId) external;
+	//function approve(address _approved, uint256 _tokenId) external;
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }
 interface CryptopunkInterface {
@@ -72,14 +72,14 @@ contract LiquidityFactory is Ownable {
 		emit BidCanceled(msg.sender, _nftAddress, bid.weiPriceEach, bid.quantity, 0);
 	}
 
-	/// @dev Hello
-	/// @param _nftAddress hello
-	/// @param _tokenId hello
-	/// @return address
-	function checkOwner(address _nftAddress, uint _tokenId) public view returns (address) {
-		address nftOwner = IERC721(_nftAddress).ownerOf(_tokenId);
-		return nftOwner;
-	}
+	// @dev Returns address that owns a particular NFT
+	// @param _nftAddress Contract address of the NFT
+	// @param _tokenId Token ID of the NFT
+	// @return Address of the NFT owner
+	//function checkOwner(address _nftAddress, uint _tokenId) public view returns (address) {
+	//	address nftOwner = IERC721(_nftAddress).ownerOf(_tokenId)[0];
+	//	return nftOwner;
+	//}
 
 	/// @dev Sells an NFT into a bid (i.e., "hits" the bid)
 	/// @param _bidderAddress Address of the bidder
@@ -105,6 +105,7 @@ contract LiquidityFactory is Ownable {
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
 			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
 		} else {
+			//IERC721(_nftAddress).approve(address(this), _tokenId);
 			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		}
 		// Compute seller proceeds

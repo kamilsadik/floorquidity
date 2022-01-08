@@ -82,7 +82,7 @@ contract LiquidityFactory is Ownable {
 	//	return nftOwner;
 	//}
 
-	/// @dev Sells an NFT into a bid (i.e., "hits" the bid)
+	/// @dev Sells NFT into a bid (i.e., "hits" the bid)
 	/// @param _bidderAddress Address of the bidder
 	/// @param _nftAddress Address of collection to which the bid applies
 	/// @param _tokenId Token id of the NFT in question

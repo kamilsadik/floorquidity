@@ -135,7 +135,7 @@ contract LiquidityFactory is Ownable {
 		for (uint256 i = 0; i < _bidderAddresses.length; i++) {
 			output[i] = hitBid(_bidderAddresses[i], _nftAddress, _tokenIds[i], _expectedWeiPriceEach[i]);
 		}
-		// Return completed array of seller proceeds
+		// Return array of seller proceeds
 		return output;
 	}
 

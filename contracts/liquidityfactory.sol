@@ -106,7 +106,7 @@ contract LiquidityFactory is Ownable {
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
 			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
 		} else {
-			//IERC721(_nftAddress).approve(address(this), _tokenId);
+			IERC721(_nftAddress).approve(address(this), _tokenId);
 			//require(IERC721(_nftAddress).ownerOf(_tokenId) == msg.sender);
 			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		}

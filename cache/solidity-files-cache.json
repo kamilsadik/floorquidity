@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/kamilalizaisadik/DeFi/Floorquidity/contracts/LiquidityFactory.sol": {
-      "lastModificationDate": 1641743369494,
-      "contentHash": "a4fd4da345a1125ba0c1098f94633195",
+      "lastModificationDate": 1641746855579,
+      "contentHash": "d01566882b12c6dabecb3df0fd2e1dd5",
       "sourceName": "contracts/LiquidityFactory.sol",
       "solcConfig": {
         "version": "0.8.3",

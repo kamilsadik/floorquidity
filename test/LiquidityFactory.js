@@ -1,5 +1,6 @@
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
+const { ethers, upgrades } = require("hardhat");
 
 // Contract addresses
 const CRYPTOPUNK_ADDRESS = "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB";
@@ -12,7 +13,7 @@ const CRYPTOPUNK_HOLDER = "0xa25803ab86A327786Bb59395fC0164D826B98298";
 const CRYPTOPUNK_HOLDINGS_FIVE = [3013, 3505, 9294, 9360, 9382];
 const CRYPTOPUNK_HOLDINGS_ONE = 3013;
 // BAYC
-const BAYC_HOLDER = "0x54BE3a794282C030b15E43aE2bB182E14c409C5e";
+const BAYC_HOLDER_ADDRESS = "0x54BE3a794282C030b15E43aE2bB182E14c409C5e";
 const BAYC_HOLDINGS_FIVE = [1044, 864, 857, 188, 863];
 const BAYC_HOLDINGS_ONE = 1044;
 // Doodle
@@ -26,9 +27,18 @@ contract("LiquidityFactory", (accounts) => {
   let contractInstance;
   beforeEach(async () => {
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
+
+      signers = await ethers.getSigners();
+
+      await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [BAYC_HOLDER_ADDRESS],
+      });
+
+      BAYC_HOLDER = await ethers.provider.getSigner(BAYC_HOLDER_ADDRESS);
   });
 
-  xcontext("as a bidder, bidding on an ERC-721 collection", async () => {
+  context("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
         // bidder is bidding 0.1 ETH for 1 BAYC
         const result = await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -160,7 +170,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
+  context("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});

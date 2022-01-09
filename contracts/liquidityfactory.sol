@@ -2,6 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "hardhat/console.sol";
 
 interface IERC721 {
 	function approve(address _approved, uint256 _tokenId) external;
@@ -89,6 +90,7 @@ contract LiquidityFactory is Ownable {
 	/// @param _expectedWeiPriceEach Price (in wei) that seller expects to receive for each NFT
 	/// @return Proceeds remitted to seller
 	function hitBid(address _bidderAddress, address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {
+		console.log("msg.sender of hitBit: ", msg.sender);
 		// Initialize bid
 		Bid memory bid = bids[_bidderAddress][_nftAddress];
 		// Require that bid exists

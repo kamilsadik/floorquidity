@@ -5,5 +5,10 @@
     "react-router-dom": "^5.3.0",
     "truffle-hdwallet-provider": "^1.0.17"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nomiclabs/hardhat-truffle5": "^2.0.3",
+    "@nomiclabs/hardhat-web3": "^2.0.0",
+    "hardhat": "^2.8.2",
+    "web3": "^1.6.1"
+  }
 }

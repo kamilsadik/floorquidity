@@ -126,7 +126,7 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
-      await erc721.connect(BAYC_HOLDER_SIGNER).approve(contractInstance, BAYC_HOLDINGS_ONE);
+      await erc721.connect(BAYC_HOLDER_SIGNER).approve(contractAddress, BAYC_HOLDINGS_ONE);
       // seller sells 1 BAYC into bidder's bid
       const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, true);

@@ -6,7 +6,7 @@ import "hardhat/console.sol";
 
 interface IERC721 {
 	//function approve(address _approved, uint256 _tokenId) external;
-	//function ownerOf(uint256 _tokenId) external returns (address);
+	function ownerOf(uint256 _tokenId) external returns (address);
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }
 interface CryptopunkInterface {
@@ -108,8 +108,7 @@ contract LiquidityFactory is Ownable {
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
 			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
 		} else {
-			//IERC721(_nftAddress).approve(address(this), _tokenId);
-			//require(IERC721(_nftAddress).ownerOf(_tokenId) == msg.sender);
+			console.log("ownerOf NFT being sold: ", IERC721(_nftAddress).ownerOf(_tokenId));
 			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		}
 		// Compute seller proceeds

@@ -148,8 +148,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -162,8 +161,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -201,8 +199,7 @@
       "name": "submitBid",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -332,8 +329,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -369,8 +365,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bidderAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weiPriceEach\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"BidCanceled\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bidderAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weiPriceEach\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NewBid\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bidderAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sellerAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"nftAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"weiPriceEach\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"NewTrade\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nftAddress\",\"type\":\"address\"}],\"name\":\"cancelBid\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_newPlatformFee\",\"type\":\"uint256\"}],\"name\":\"changePlatformFee\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_bidderAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nftAddress\",\"type\":\"address\"}],\"name\":\"getBid\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"weiPriceEach\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"}],\"internalType\":\"struct LiquidityFactory.Bid\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_bidderAddresses\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"_nftAddresses\",\"type\":\"address[]\"}],\"name\":\"getBids\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"weiPriceEach\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"quantity\",\"type\":\"uint256\"}],\"internalType\":\"struct LiquidityFactory.Bid[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_bidderAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_expectedWeiPriceEach\",\"type\":\"uint256\"}],\"name\":\"hitBid\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_bidderAddresses\",\"type\":\"address[]\"},{\"internalType\":\"address\",\"name\":\"_nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256[]\",\"name\":\"_tokenIds\",\"type\":\"uint256[]\"},{\"internalType\":\"uint256[]\",\"name\":\"_expectedWeiPriceEach\",\"type\":\"uint256[]\"}],\"name\":\"hitMultipleBids\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"\",\"type\":\"uint256[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"platformFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nftAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_quantity\",\"type\":\"uint256\"}],\"name\":\"submitBid\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Kamil Alizai Sadik\",\"kind\":\"dev\",\"methods\":{\"cancelBid(address)\":{\"details\":\"Cancels a bid\",\"params\":{\"_nftAddress\":\"Address of NFT collection for which bid is being canceled\"}},\"changePlatformFee(uint256)\":{\"details\":\"Allows owner to change platformFee\",\"params\":{\"_newPlatformFee\":\"New platform fee\"}},\"getBid(address,address)\":{\"details\":\"Getter function to display a single bid on front-end\",\"params\":{\"_bidderAddress\":\"Address of bidder\",\"_nftAddress\":\"Address of collection to which the bid applies\"},\"returns\":{\"_0\":\"Desired bid\"}},\"getBids(address[],address[])\":{\"details\":\"Getter function to display multiple bids on front-end\",\"params\":{\"_bidderAddresses\":\"Array of bidders\",\"_nftAddresses\":\"Array of collections to which each bid (respectively) applies\"},\"returns\":{\"_0\":\"Array of desired bids\"}},\"hitBid(address,address,uint256,uint256)\":{\"details\":\"Sells NFT into a bid (i.e., \\\"hits\\\" the bid)\",\"params\":{\"_bidderAddress\":\"Address of the bidder\",\"_expectedWeiPriceEach\":\"Price (in wei) that seller expects to receive for each NFT\",\"_nftAddress\":\"Address of collection to which the bid applies\",\"_tokenId\":\"Token id of the NFT in question\"},\"returns\":{\"_0\":\"Proceeds remitted to seller\"}},\"hitMultipleBids(address[],address,uint256[],uint256[])\":{\"details\":\"Sells multiple NFTs into multiple bids (i.e., \\\"hits\\\" multiple bids)\",\"params\":{\"_bidderAddresses\":\"Array of addresses of bidders\",\"_expectedWeiPriceEach\":\"Array of prices (in wei) that seller expects to receive for each NFT\",\"_nftAddress\":\"Address of collection to which the bids apply\",\"_tokenIds\":\"Array of token ids of the NFTs in question\"},\"returns\":{\"_0\":\"Array of proceeds remitted to seller for each sold NFT\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"submitBid(address,uint256)\":{\"details\":\"Creates a new bid\",\"params\":{\"_nftAddress\":\"Address of desired NFT collection\",\"_quantity\":\"Quantity of desired NFT\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"title\":\"A contract enabling bidders to bid on any NFT in a given collection, and holders to sell any NFT from that collection into such a bid\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/LiquidityFactory.sol\":\"LiquidityFactory\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x1cae4f85f114ff17b90414f5da67365b1d00337abb5bce9bf944eb78a2c0673c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://d5ff16b336ce8f906478d5f2eecc6435e00833bdc0b92f6b209cf9e92cb5b2b7\",\"dweb:/ipfs/QmRD1rAZEqQ73C33cdA3QoUyBDMEWnNKNMc6PNkAZWHeQQ\"]},\"@openzeppelin/contracts/utils/Context.sol\":{\"keccak256\":\"0xf930d2df426bfcfc1f7415be724f04081c96f4fb9ec8d0e3a521c07692dface0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fc2bfdea0d2562c76fb3c4cf70a86c6ba25c5a30e8f8515c95aafdf8383f8395\",\"dweb:/ipfs/QmTbFya18786ckJfLYUoWau9jBTKfmWnWm5XSViWvB7PXN\"]},\"hardhat/console.sol\":{\"keccak256\":\"0x72b6a1d297cd3b033d7c2e4a7e7864934bb767db6453623f1c3082c6534547f4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a8cb8681076e765c214e0d51cac989325f6b98e315eaae06ee0cbd5a9f084763\",\"dweb:/ipfs/QmNWGHi4zmjxQTYN3NMGnJd49jBT5dE4bxTdWEaDuJrC6N\"]},\"project:/contracts/LiquidityFactory.sol\":{\"keccak256\":\"0x8131db93e47d7029c98ec7df306de58e8f1c879796286695561cafae8a6dfedb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://87d8fd9974de62539026f0c6eba3daa78def6a48d940834bf6fb73c12e758030\",\"dweb:/ipfs/QmajPsiyP8ktZ3h5qzLoAUNbHU3eYEFzZdqSC7eXquyTS7\"]}},\"version\":1}",
@@ -29767,8 +29762,7 @@
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-01-10T00:53:22.915Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-01-10T13:48:24.743Z",
   "devdoc": {
     "author": "Kamil Alizai Sadik",
     "kind": "dev",

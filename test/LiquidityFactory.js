@@ -293,8 +293,8 @@ const { ethers, upgrades } = require("hardhat");
 const fs = require('fs');
 const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
 const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
-const provider = ethers.getDefaultProvider(infuraEndpoint);
-//const provider = ethers.getDefaultProvider(alchemyEndpoint);
+//const provider = ethers.getDefaultProvider(infuraEndpoint);
+const provider = ethers.getDefaultProvider(alchemyEndpoint);
 //const provider = new providers.AlchemyProvider(null, alchemyEndpoint);
 
 // Contract addresses
@@ -325,18 +325,16 @@ contract("LiquidityFactory", (accounts) => {
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
 
       //signers = await ethers.getSigners();
-      //await hre.network.provider.request({
-      //  method: "hardhat_impersonateAccount",
-      //  params: [BAYC_HOLDER_ADDRESS],
-      //});
-      //erc721 = ethers.getContractAt(BAYC_ADDRESS, BAYC_ABI, provider);
-      //erc721 = new ethers.Contract(BAYC_ADDRESS, BAYC_ABI, provider);
-      //erc721 = await ethers.getContractAt("BoredApeYachtClub", BAYC_ADDRESS);
+      await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [BAYC_HOLDER_ADDRESS],
+      });
+
       //BAYC_HOLDER_SIGNER = await ethers.provider.getSigner(BAYC_HOLDER_ADDRESS);
-      //await hre.network.provider.request({
-      //  method: "hardhat_impersonateAccount",
-      //  params: [CRYPTOPUNK_HOLDER_ADDRESS],
-      //});
+      await hre.network.provider.request({
+        method: "hardhat_impersonateAccount",
+        params: [CRYPTOPUNK_HOLDER_ADDRESS],
+      });
       //CRYPTOPUNK_HOLDER_SIGNER = await ethers.provider.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
 
       erc721 = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
@@ -411,7 +409,7 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
-      // contractInstance.address
+      console.log("Contract address: ", contractInstance.address);
       const approval = await erc721.approve(contractInstance.address, BAYC_HOLDINGS_ONE, {from: BAYC_HOLDER_ADDRESS})
       //await approval.wait(1);
       //await erc721.connect(BAYC_HOLDER_SIGNER).approve("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", BAYC_HOLDINGS_ONE);

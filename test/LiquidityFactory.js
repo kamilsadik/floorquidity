@@ -302,7 +302,7 @@ const CRYPTOPUNK_ADDRESS = "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB";
 const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const DOODLE_ADDRESS = "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e";
 
-// Holdernpx  addresses
+// Holder  addresses
 // Cryptopunk
 const CRYPTOPUNK_HOLDER_ADDRESS = "0xa25803ab86A327786Bb59395fC0164D826B98298";
 const CRYPTOPUNK_HOLDINGS_FIVE = [3013, 3505, 9294, 9360, 9382];
@@ -323,6 +323,8 @@ contract("LiquidityFactory", (accounts) => {
   beforeEach(async () => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
+      LiquidityFactory.setAsDeployed(contractInstance);
+      //contractInstance = new ethers.Contract("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", FLOORQUIDITYABI, await provider.getSigner());
 
       //signers = await ethers.getSigners();
       await hre.network.provider.request({

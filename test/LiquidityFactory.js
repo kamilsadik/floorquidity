@@ -292,7 +292,7 @@ const { ethers, upgrades } = require("hardhat");
 
 const fs = require('fs');
 const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
-const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
+//const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
 //const provider = ethers.getDefaultProvider(infuraEndpoint);
 const provider = ethers.getDefaultProvider(alchemyEndpoint);
 //const provider = new providers.AlchemyProvider(null, alchemyEndpoint);

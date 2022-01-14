@@ -319,13 +319,16 @@ const DOODLE_HOLDINGS_ONE = 6230;
 contract("LiquidityFactory", (accounts) => {
 
   let [owner, bidder, seller] = accounts;
+  console.log(accounts);
   let contractInstance;
   beforeEach(async () => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
       //LiquidityFactory.setAsDeployed(contractInstance);
       //contractInstance = new ethers.Contract("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", FLOORQUIDITYABI, await provider.getSigner());
-
+      console.log("Contract address: ", contractInstance.address);
+      CONTRACT_ADDRESS = contractInstance.address;
+      
       //signers = await ethers.getSigners();
       await hre.network.provider.request({
         method: "hardhat_impersonateAccount",
@@ -411,7 +414,6 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
-      console.log("Contract address: ", contractInstance.address);
       const approval = await erc721.approve(contractInstance.address, BAYC_HOLDINGS_ONE, {from: BAYC_HOLDER_ADDRESS})
       //await approval.wait(1);
       //await erc721.connect(BAYC_HOLDER_SIGNER).approve("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", BAYC_HOLDINGS_ONE);

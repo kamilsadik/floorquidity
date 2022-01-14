@@ -6,6 +6,8 @@
 // npm install --save-dev @nomiclabs/hardhat-truffle5 @nomiclabs/hardhat-web3 web3
 require("@nomiclabs/hardhat-truffle5");
 require("@nomiclabs/hardhat-ethers");
+require('hardhat-deploy');
+
 
 const fs = require('fs');
 const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();

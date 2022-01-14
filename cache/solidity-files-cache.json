@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/kamilalizaisadik/DeFi/Floorquidity/contracts/LiquidityFactory.sol": {
-      "lastModificationDate": 1642122713081,
+      "lastModificationDate": 1642170213063,
       "contentHash": "053bb56a95d487fe43c3c177ddabbffb",
       "sourceName": "contracts/LiquidityFactory.sol",
       "solcConfig": {
@@ -19,12 +19,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
@@ -59,12 +66,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
@@ -79,7 +93,7 @@
       ]
     },
     "/Users/kamilalizaisadik/DeFi/Floorquidity/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1641740289123,
+      "lastModificationDate": 1641741217825,
       "contentHash": "cc4777addd464ea56fa35b1c45df0591",
       "sourceName": "hardhat/console.sol",
       "solcConfig": {
@@ -96,12 +110,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
@@ -131,12 +152,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
@@ -149,7 +177,7 @@
       ]
     },
     "/Users/kamilalizaisadik/DeFi/Floorquidity/contracts/Migrations.sol": {
-      "lastModificationDate": 1641163667973,
+      "lastModificationDate": 1641746898390,
       "contentHash": "50b3b1dc92806dc8f604fc8c5c65518f",
       "sourceName": "contracts/Migrations.sol",
       "solcConfig": {
@@ -166,12 +194,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },

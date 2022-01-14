@@ -291,10 +291,11 @@ const utils = require("./helpers/utils");
 const { ethers, upgrades } = require("hardhat");
 
 const fs = require('fs');
-const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
-//const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
-//const provider = ethers.getDefaultProvider(infuraEndpoint);
-const provider = ethers.getDefaultProvider(alchemyEndpoint);
+const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
+const provider = ethers.getDefaultProvider(infuraEndpoint);
+//const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
+//const provider = ethers.getDefaultProvider(alchemyEndpoint);
+
 //const provider = new providers.AlchemyProvider(null, alchemyEndpoint);
 
 // Contract addresses
@@ -319,28 +320,22 @@ const DOODLE_HOLDINGS_ONE = 6230;
 contract("LiquidityFactory", (accounts) => {
 
   let [owner, bidder, seller] = accounts;
-  console.log(accounts);
+  console.log("Accounts: ", accounts);
   let contractInstance;
   beforeEach(async () => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
-      //LiquidityFactory.setAsDeployed(contractInstance);
-      //contractInstance = new ethers.Contract("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", FLOORQUIDITYABI, await provider.getSigner());
       console.log("Contract address: ", contractInstance.address);
-      CONTRACT_ADDRESS = contractInstance.address;
       
-      //signers = await ethers.getSigners();
       await hre.network.provider.request({
-        method: "hardhat_impersonateAccount",
-        params: [BAYC_HOLDER_ADDRESS],
+       method: "hardhat_impersonateAccount",
+       params: [BAYC_HOLDER_ADDRESS],
       });
 
-      //BAYC_HOLDER_SIGNER = await ethers.provider.getSigner(BAYC_HOLDER_ADDRESS);
       await hre.network.provider.request({
-        method: "hardhat_impersonateAccount",
-        params: [CRYPTOPUNK_HOLDER_ADDRESS],
+       method: "hardhat_impersonateAccount",
+       params: [CRYPTOPUNK_HOLDER_ADDRESS],
       });
-      //CRYPTOPUNK_HOLDER_SIGNER = await ethers.provider.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
 
       erc721 = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
     });

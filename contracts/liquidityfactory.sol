@@ -74,15 +74,6 @@ contract LiquidityFactory is Ownable {
 		emit BidCanceled(msg.sender, _nftAddress, bid.weiPriceEach, bid.quantity, 0);
 	}
 
-	// @dev Returns address that owns a particular NFT
-	// @param _nftAddress Contract address of the NFT
-	// @param _tokenId Token ID of the NFT
-	// @return Address of the NFT owner
-	//function checkOwner(address _nftAddress, uint _tokenId) public view returns (address) {
-	//	address nftOwner = IERC721(_nftAddress).ownerOf(_tokenId)[0];
-	//	return nftOwner;
-	//}
-
 	/// @dev Sells NFT into a bid (i.e., "hits" the bid)
 	/// @param _bidderAddress Address of the bidder
 	/// @param _nftAddress Address of collection to which the bid applies

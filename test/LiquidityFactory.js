@@ -323,7 +323,7 @@ contract("LiquidityFactory", (accounts) => {
   beforeEach(async () => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
-      LiquidityFactory.setAsDeployed(contractInstance);
+      //LiquidityFactory.setAsDeployed(contractInstance);
       //contractInstance = new ethers.Contract("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", FLOORQUIDITYABI, await provider.getSigner());
 
       //signers = await ethers.getSigners();

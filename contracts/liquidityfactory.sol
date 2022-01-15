@@ -5,7 +5,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
 interface IERC721 {
-	//function approve(address _approved, uint256 _tokenId) external;
 	function ownerOf(uint256 _tokenId) external returns (address);
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }

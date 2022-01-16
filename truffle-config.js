@@ -24,6 +24,7 @@ const fs = require('fs');
 const mnemonic = fs.readFileSync("./testnet_private_key").toString().trim();
 const infuraKey = fs.readFileSync("./infuraKey").toString().trim();
 const endpoint = fs.readFileSync("./endpoint").toString().trim();
+const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
 
 module.exports = {
   /**
@@ -54,7 +55,6 @@ module.exports = {
       },
       network_id: 4 // `network_id` for the Rinkeby network.
     },
-
     // Configuration for Ganache development network
     development: {
       host: "127.0.0.1",     // Localhost (default: none)

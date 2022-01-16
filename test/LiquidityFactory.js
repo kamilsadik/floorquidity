@@ -288,6 +288,8 @@ const ERC721ABI = [
 
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
+const {setupUsers, setupUser} = require("./helpers/index");
+
 const { ethers, upgrades, deployments, getNamedAccounts, getUnnamedAccounts } = require("hardhat");
 
 const fs = require('fs');
@@ -326,9 +328,11 @@ contract("LiquidityFactory", (accounts) => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
       // await deployments.fixture(["LiquidityFactory"]);
-      // const contractInstance = {
-      //   LiquidityFactory: (await ethers.getContract('LiquidityFactory')),
-      // };
+      // const contractInstance = await ethers.getContract('LiquidityFactory');
+
+      // const {owner, bidder} = await getNamedAccounts()
+
+      // const users = await setupUsers(await getUnnamedAccounts(), contractInstance);
 
       console.log("Contract address: ", contractInstance.address);
       
@@ -343,6 +347,12 @@ contract("LiquidityFactory", (accounts) => {
       });
 
       erc721 = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
+
+      // return {
+      //   contractInstance,
+      //   users,
+      //   owner: await setupUser(owner, contractInstance),
+      // };
     });
 
   context("as a bidder, bidding on an ERC-721 collection", async () => {
@@ -414,9 +424,8 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller approves contract address to transfer BAYC
       const approval = await erc721.approve(contractInstance.address, BAYC_HOLDINGS_ONE, {from: BAYC_HOLDER_ADDRESS})
-      //await approval.wait(1);
-      //await erc721.connect(BAYC_HOLDER_SIGNER).approve("0xfaAddC93baf78e89DCf37bA67943E1bE8F37Bb8c", BAYC_HOLDINGS_ONE);
       // seller sells 1 BAYC into bidder's bid
       const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, true);

@@ -9,7 +9,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('LiquidityFactory', {
     from: owner,
-    args: [bidder],
+    args: [],
     log: true,
   });
 };

@@ -288,17 +288,14 @@ const ERC721ABI = [
 
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
-const {setupUsers, setupUser} = require("./helpers/index");
-
+//const {setupUsers, setupUser} = require("./helpers/index");
 const { ethers, upgrades, deployments, getNamedAccounts, getUnnamedAccounts } = require("hardhat");
 
 const fs = require('fs');
-//const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
-//const provider = ethers.getDefaultProvider(infuraEndpoint);
+// const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
+// const provider = ethers.getDefaultProvider(infuraEndpoint);
 const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
 const provider = ethers.getDefaultProvider(alchemyEndpoint);
-
-//const provider = new providers.AlchemyProvider(null, alchemyEndpoint);
 
 // Contract addresses
 const CRYPTOPUNK_ADDRESS = "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB";
@@ -321,7 +318,7 @@ const DOODLE_HOLDINGS_ONE = 6230;
 
 contract("LiquidityFactory", (accounts) => {
 
-  let [owner, bidder, seller] = accounts;
+  let [owner, bidder] = accounts;
   console.log("Accounts: ", accounts);
   let contractInstance;
   beforeEach(async () => {
@@ -335,7 +332,7 @@ contract("LiquidityFactory", (accounts) => {
       // const users = await setupUsers(await getUnnamedAccounts(), contractInstance);
 
       console.log("Contract address: ", contractInstance.address);
-      
+
       await hre.network.provider.request({
        method: "hardhat_impersonateAccount",
        params: [BAYC_HOLDER_ADDRESS],
@@ -347,6 +344,7 @@ contract("LiquidityFactory", (accounts) => {
       });
 
       erc721 = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
+      //erc721 = await hre.ethers.getContractAt("BAYC", BAYC_ADDRESS);
 
       // return {
       //   contractInstance,
@@ -424,8 +422,11 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      await erc721.ownerOf(BAYC_HOLDINGS_ONE);
+      console.log("BAYC holder: ", holder_of_bayc);
       // seller approves contract address to transfer BAYC
-      const approval = await erc721.approve(contractInstance.address, BAYC_HOLDINGS_ONE, {from: BAYC_HOLDER_ADDRESS})
+      
+      //await erc721.approve(contractInstance.address, BAYC_HOLDINGS_ONE, {from: BAYC_HOLDER_ADDRESS})
       // seller sells 1 BAYC into bidder's bid
       const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, true);

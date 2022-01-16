@@ -288,7 +288,7 @@ const ERC721ABI = [
 
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
-const { ethers, upgrades } = require("hardhat");
+const { ethers, upgrades, deployments, getNamedAccounts, getUnnamedAccounts } = require("hardhat");
 
 const fs = require('fs');
 //const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
@@ -325,6 +325,11 @@ contract("LiquidityFactory", (accounts) => {
   beforeEach(async () => {
     
       contractInstance = await LiquidityFactory.new("LiquidityFactory");
+      // await deployments.fixture(["LiquidityFactory"]);
+      // const contractInstance = {
+      //   LiquidityFactory: (await ethers.getContract('LiquidityFactory')),
+      // };
+
       console.log("Contract address: ", contractInstance.address);
       
       await hre.network.provider.request({

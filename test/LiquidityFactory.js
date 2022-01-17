@@ -57,7 +57,7 @@ contract("LiquidityFactory", (accounts) => {
       method: "hardhat_impersonateAccount",
       params: [BAYC_HOLDER_ADDRESS],
     });
-    
+
     await hre.network.provider.request({
       method: "hardhat_impersonateAccount",
       params: [DOODLE_HOLDER_ADDRESS],
@@ -173,11 +173,16 @@ contract("LiquidityFactory", (accounts) => {
       // seller tries to sell 1 Doodle into bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER_ADDRESS}));
     });
-    xit("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
+    it("should not be able to sell multiple NFTs into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller approves first BAYC for sale
+      const BAYC_SIGNER = await ethers.getSigner(BAYC_HOLDER_ADDRESS);
+      // seller approves second BAYC for sale
+      await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[0], {gasLimit: 500000});
+      await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[1], {gasLimit: 500000});
       // seller tries to sell 2 BAYC into bid
-      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE.slice(1), 1000000000000, {from: BAYC_HOLDER}));
+      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE.slice(1), 1000000000000, {from: BAYC_HOLDER_ADDRESS}));
     });
     xit("should be able to sell a single NFT into a bid for multiple NFTs", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)

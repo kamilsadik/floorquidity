@@ -80,7 +80,6 @@ contract LiquidityFactory is Ownable {
 	/// @param _expectedWeiPriceEach Price (in wei) that seller expects to receive for each NFT
 	/// @return Proceeds remitted to seller
 	function hitBid(address _bidderAddress, address _nftAddress, uint256 _tokenId, uint256 _expectedWeiPriceEach) public returns (uint256) {
-		console.log("msg.sender of hitBid: ", msg.sender);
 		// Initialize bid
 		Bid memory bid = bids[_bidderAddress][_nftAddress];
 		// Require that bid exists
@@ -98,7 +97,6 @@ contract LiquidityFactory is Ownable {
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
 			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
 		} else {
-			console.log("ownerOf NFT being sold: ", IERC721(_nftAddress).ownerOf(_tokenId));
 			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		}
 		// Compute seller proceeds

@@ -1,301 +1,13 @@
-const ERC721ABI = [
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "approved",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "bool",
-        name: "approved",
-        type: "bool",
-      },
-    ],
-    name: "ApprovalForAll",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "balance",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "getApproved",
-    outputs: [
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-    ],
-    name: "isApprovedForAll",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "ownerOf",
-    outputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "safeTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "data",
-        type: "bytes",
-      },
-    ],
-    name: "safeTransferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "operator",
-        type: "address",
-      },
-      {
-        internalType: "bool",
-        name: "_approved",
-        type: "bool",
-      },
-    ],
-    name: "setApprovalForAll",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes4",
-        name: "interfaceId",
-        type: "bytes4",
-      },
-    ],
-    name: "supportsInterface",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "tokenId",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
+
 
 //const CRYPTOPUNK_ABI = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"punksOfferedForSale","outputs":[{"name":"isForSale","type":"bool"},{"name":"punkIndex","type":"uint256"},{"name":"seller","type":"address"},{"name":"minValue","type":"uint256"},{"name":"onlySellTo","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"}],"name":"enterBidForPunk","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"},{"name":"minPrice","type":"uint256"}],"name":"acceptBidForPunk","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"addresses","type":"address[]"},{"name":"indices","type":"uint256[]"}],"name":"setInitialOwners","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"imageHash","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"nextPunkIndexToAssign","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"punkIndexToAddress","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"standard","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"punkBids","outputs":[{"name":"hasBid","type":"bool"},{"name":"punkIndex","type":"uint256"},{"name":"bidder","type":"address"},{"name":"value","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"allInitialOwnersAssigned","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"allPunksAssigned","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"}],"name":"buyPunk","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"punkIndex","type":"uint256"}],"name":"transferPunk","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"}],"name":"withdrawBidForPunk","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"punkIndex","type":"uint256"}],"name":"setInitialOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"},{"name":"minSalePriceInWei","type":"uint256"},{"name":"toAddress","type":"address"}],"name":"offerPunkForSaleToAddress","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"punksRemainingToAssign","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"},{"name":"minSalePriceInWei","type":"uint256"}],"name":"offerPunkForSale","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"}],"name":"getPunk","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"pendingWithdrawals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"punkIndex","type":"uint256"}],"name":"punkNoLongerForSale","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":true,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"punkIndex","type":"uint256"}],"name":"Assign","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"punkIndex","type":"uint256"}],"name":"PunkTransfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"punkIndex","type":"uint256"},{"indexed":false,"name":"minValue","type":"uint256"},{"indexed":true,"name":"toAddress","type":"address"}],"name":"PunkOffered","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"punkIndex","type":"uint256"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":true,"name":"fromAddress","type":"address"}],"name":"PunkBidEntered","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"punkIndex","type":"uint256"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":true,"name":"fromAddress","type":"address"}],"name":"PunkBidWithdrawn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"punkIndex","type":"uint256"},{"indexed":false,"name":"value","type":"uint256"},{"indexed":true,"name":"fromAddress","type":"address"},{"indexed":true,"name":"toAddress","type":"address"}],"name":"PunkBought","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"punkIndex","type":"uint256"}],"name":"PunkNoLongerForSale","type":"event"}];
 
 const LiquidityFactory = artifacts.require("LiquidityFactory");
 const utils = require("./helpers/utils");
-//const {setupUsers, setupUser} = require("./helpers/index");
-const { ethers, upgrades, deployments, getNamedAccounts, getUnnamedAccounts } = require("hardhat");
+const { ERC721ABI } = require("./helpers/ERC721ABI")
+const { ethers } = require("hardhat");
 
 const fs = require('fs');
-// const infuraEndpoint = fs.readFileSync("./endpoint").toString().trim();
-// const provider = ethers.getDefaultProvider(infuraEndpoint);
 const alchemyEndpoint = fs.readFileSync("./alchemyEndpoint").toString().trim();
 const provider = ethers.getDefaultProvider(alchemyEndpoint);
 
@@ -304,7 +16,7 @@ const CRYPTOPUNK_ADDRESS = "0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB";
 const BAYC_ADDRESS = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const DOODLE_ADDRESS = "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e";
 
-// Holder  addresses
+// Holders
 // Cryptopunk
 const CRYPTOPUNK_HOLDER_ADDRESS = "0xa25803ab86A327786Bb59395fC0164D826B98298";
 const CRYPTOPUNK_HOLDINGS_FIVE = [3013, 3505, 9294, 9360, 9382];
@@ -324,35 +36,42 @@ contract("LiquidityFactory", (accounts) => {
   console.log("Accounts: ", accounts);
   let contractInstance;
   beforeEach(async () => {
-    
-      contractInstance = await LiquidityFactory.new("LiquidityFactory");
-      // await deployments.fixture(["LiquidityFactory"]);
-      // const contractInstance = await ethers.getContract('LiquidityFactory');
-      // const {owner, bidder} = await getNamedAccounts()
-      // const users = await setupUsers(await getUnnamedAccounts(), contractInstance);
-
-      console.log("Contract address: ", contractInstance.address);
-
-      await hre.network.provider.request({
-       method: "hardhat_impersonateAccount",
-       params: [BAYC_HOLDER_ADDRESS],
-      });
-
-      await hre.network.provider.request({
-       method: "hardhat_impersonateAccount",
-       params: [CRYPTOPUNK_HOLDER_ADDRESS],
-      });
-
-      erc721 = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
-      //cryptopunk = new ethers.Contract(CRYPTOPUNK_ADDRESS, CRYPTOPUNK_ABI, await provider.getSigner());
-      //erc721 = await hre.ethers.getContractAt("BAYC", BAYC_ADDRESS);
-
-      // return {
-      //   contractInstance,
-      //   users,
-      //   owner: await setupUser(owner, contractInstance),
-      // };
+    // Resetting state back to refreshed block before each test
+    // This lets us test with the same NFT(s) in sequential tests
+    await hre.network.provider.request({
+      method: "hardhat_reset",
+      params: [
+        {
+          forking: {
+            jsonRpcUrl: alchemyEndpoint,
+            blockNumber: 13972250,
+          },
+        },
+      ],
     });
+    
+    contractInstance = await LiquidityFactory.new("LiquidityFactory");
+    //console.log("Contract address: ", contractInstance.address);
+
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [BAYC_HOLDER_ADDRESS],
+    });
+    
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [DOODLE_HOLDER_ADDRESS],
+    });
+
+    await hre.network.provider.request({
+      method: "hardhat_impersonateAccount",
+      params: [CRYPTOPUNK_HOLDER_ADDRESS],
+    });
+
+    ERC721_BAYC = new ethers.Contract(BAYC_ADDRESS, ERC721ABI, await provider.getSigner());
+    ERC721_DOODLES = new ethers.Contract(DOODLE_ADDRESS, ERC721ABI, await provider.getSigner());
+    //cryptopunk = new ethers.Contract(CRYPTOPUNK_ADDRESS, CRYPTOPUNK_ABI, await provider.getSigner());
+  });
 
   context("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
@@ -423,11 +142,9 @@ contract("LiquidityFactory", (accounts) => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
-      //await erc721.ownerOf(BAYC_HOLDINGS_ONE);
-      //console.log("BAYC holder: ", holder_of_bayc);
       // seller approves contract address to transfer BAYC
       const BAYC_SIGNER = await ethers.getSigner(BAYC_HOLDER_ADDRESS);
-      await erc721.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_ONE, {gasLimit: 500000})
+      await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_ONE, {gasLimit: 500000});
       // seller sells 1 BAYC into bidder's bid
       const result = await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, true);
@@ -438,15 +155,21 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.logs[0].args.quantity, 1);
       assert.equal(result.logs[0].args.tokenId, BAYC_HOLDINGS_ONE);
     });
-    xit("should throw if bid amount is less than seller expects", async () => {
+    it("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller approves contract address to transfer BAYC
+      const BAYC_SIGNER = await ethers.getSigner(BAYC_HOLDER_ADDRESS);
+      await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_ONE, {gasLimit: 500000});
       // seller tries to sell 1 BAYC into bid, but doesn't because the bid is less than expected
-      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 2000000000000, {from: BAYC_HOLDER}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 2000000000000, {from: BAYC_HOLDER_ADDRESS}));
     });
-    xit("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
+    it("should not be able to sell an ineligible NFT into a bid for a specific collection", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller approves contract address to transfer a Doodle into the BAYC bid
+      const DOODLE_SIGNER = await ethers.getSigner(DOODLE_HOLDER_ADDRESS);
+      await ERC721_DOODLES.connect(DOODLE_SIGNER).approve(contractInstance.address, DOODLE_HOLDINGS_ONE, {gasLimit: 500000});
       // seller tries to sell 1 Doodle into bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER_ADDRESS}));
     });

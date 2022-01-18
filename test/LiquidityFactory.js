@@ -71,7 +71,7 @@ contract("LiquidityFactory", (accounts) => {
     CRYPTOPUNK = new ethers.Contract(CRYPTOPUNK_ADDRESS, CRYPTOPUNKABI, await provider.getSigner());
   });
 
-  context("as a bidder, bidding on an ERC-721 collection", async () => {
+  xcontext("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
         // bidder is bidding 0.1 ETH for 1 BAYC
         const result = await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -136,7 +136,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as a seller, selling an NFT from an ERC-721 collection", async () => {
+  xcontext("as a seller, selling an NFT from an ERC-721 collection", async () => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
@@ -248,7 +248,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as a bidder, bidding on a Cryptopunk", async () => {
+  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -322,41 +322,54 @@ contract("LiquidityFactory", (accounts) => {
       await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_ONE, {gasLimit: 500000})
       // seller sells 1 Cryptopunk into bid
       const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER_ADDRESS});
-      assert.equal(result.receipt.status, 1000000000000);
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER);
+      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER_ADDRESS);
       assert.equal(result.logs[0].args.nftAddress, CRYPTOPUNK_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
       assert.equal(result.logs[0].args.tokenId, CRYPTOPUNK_HOLDINGS_ONE);
     });
-    xit("should throw if bid amount is less than seller expects", async () => {
+    it("should throw if bid amount is less than seller expects", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller transfers Cryptopunk to contract address
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_ONE, {gasLimit: 500000})
       // seller tries to sell 1 Cryptopunk into bid, but doesn't because the bid is less than expected
-      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 2000000000000, {from: CRYPTOPUNK_HOLDER}));
+      await utils.shouldThrow(contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 2000000000000, {from: CRYPTOPUNK_HOLDER_ADDRESS}));
     });
-    xit("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
+    it("should not be able to sell an ineligible NFT into a bid for a Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller approves contract address to transfer a Doodle into the BAYC bid
+      const DOODLE_SIGNER = await ethers.getSigner(DOODLE_HOLDER_ADDRESS);
+      await ERC721_DOODLES.connect(DOODLE_SIGNER).approve(contractInstance.address, DOODLE_HOLDINGS_ONE, {gasLimit: 500000});
       // seller tries to sell 1 Doodle into bid
       await utils.shouldThrow(contractInstance.hitBid(bidder, DOODLE_ADDRESS, DOODLE_HOLDINGS_ONE, 1000000000000, {from: DOODLE_HOLDER_ADDRESS}));
     });
-    xit("should not be able to sell multiple Cryptopunks into a bid for one Cryptopunk", async () => {
+    it("should not be able to sell multiple Cryptopunks into a bid for one Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller transfers first Cryptopunk
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[0], {gasLimit: 500000})
+      // seller transfers second Cryptopunk
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[1], {gasLimit: 500000})
       // seller tries to sell 2 Cryptopunks into bid
-      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE.slice(1), 1000000000000, {from: CRYPTOPUNK_HOLDER}));
+      await utils.shouldThrow(contractInstance.hitMultipleBids([bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE.slice(0,2), [1000000000000, 1000000000000], {from: CRYPTOPUNK_HOLDER_ADDRESS}));
     });
-    xit("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks", async () => {
+    it("should be able to sell a single Cryptopunk into a bid for multiple Cryptopunks", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 Cryptopunk)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
+      // seller transfers Cryptopunk to contract address
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
       // seller sells 1 Cryptopunk into bid
-      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_ONE, {gasLimit: 500000})
+      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, true);
       assert.equal(result.logs[0].args.bidderAddress, bidder);
-      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER);
+      assert.equal(result.logs[0].args.sellerAddress, CRYPTOPUNK_HOLDER_ADDRESS);
       assert.equal(result.logs[0].args.nftAddress, CRYPTOPUNK_ADDRESS);
       assert.equal(result.logs[0].args.weiPriceEach, 1000000000000);
       assert.equal(result.logs[0].args.quantity, 1);
@@ -392,7 +405,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as owner", async () => {
+  xcontext("as owner", async () => {
     it("should be able to invoke changePlatformFee", async () => {
       const result = await contractInstance.changePlatformFee(100, {from: owner});
       assert.equal(result.receipt.status, true);
@@ -462,7 +475,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as non-owner", async () => {
+  xcontext("as non-owner", async () => {
     it("should not be able to invoke changePlatformFee", async () => {
       await utils.shouldThrow(contractInstance.changePlatformFee(100, {from: bidder}));
     });

@@ -314,9 +314,12 @@ contract("LiquidityFactory", (accounts) => {
   })
 
   context("as a seller, selling a Cryptopunk", async () => {
-    xit("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
+    it("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller transfers Cryptopunk to contract address
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_ONE, {gasLimit: 500000})
       // seller sells 1 Cryptopunk into bid
       const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER_ADDRESS});
       assert.equal(result.receipt.status, 1000000000000);

@@ -429,7 +429,7 @@ contract("LiquidityFactory", (accounts) => {
       const result = await contractInstance.changePlatformFee(100, {from: owner});
       assert.equal(result.receipt.status, true);
     });
-    xit("should receive correct payout for a single completed ERC-721 transaction", async () => {
+    it("should receive correct payout for a single completed ERC-721 transaction", async () => {
       console.log("owner address: ", owner);
       // check owner balance before transaction
       let ownerBalancePre = await web3.eth.getBalance(owner);

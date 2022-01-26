@@ -424,7 +424,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as owner", async () => {
+  xcontext("as owner", async () => {
     it("should be able to invoke changePlatformFee", async () => {
       const result = await contractInstance.changePlatformFee(100, {from: owner});
       assert.equal(result.receipt.status, true);

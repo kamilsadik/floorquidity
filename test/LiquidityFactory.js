@@ -455,15 +455,15 @@ contract("LiquidityFactory", (accounts) => {
       console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
-      // seller sells 5 BAYC into bid
-      // seller approves first BAYC for sale
+      // seller approves BAYC for sale
       const BAYC_SIGNER = await ethers.getSigner(BAYC_HOLDER_ADDRESS);
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[0], {gasLimit: 500000});
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[1], {gasLimit: 500000});
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[2], {gasLimit: 500000});
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[3], {gasLimit: 500000});
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_FIVE[4], {gasLimit: 500000});
-      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE.slice(0,5), 1000000000000, {from: BAYC_HOLDER_ADDRESS});
+      // seller sells 5 BAYC into bid
+      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE, [1000000000000, 1000000000000, 1000000000000, 1000000000000, 1000000000000], {from: BAYC_HOLDER_ADDRESS});
       let ownerBalancePost = await web3.eth.getBalance(owner);
       console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference

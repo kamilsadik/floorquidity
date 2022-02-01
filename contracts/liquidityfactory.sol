@@ -91,7 +91,6 @@ contract LiquidityFactory is Ownable {
 		// Compute platform fee proceeds
 		uint256 platformFeeProceeds = bid.weiPriceEach * platformFee / 10000;
 		// Remit platform fee proceeds to owner
-		console.log("owner: ", owner());
 		sendValue(payable(owner()), platformFeeProceeds);
 		// Transfer NFT to bidder
 		// Check whether _nftAddress is Cryptopunks address

@@ -71,7 +71,7 @@ contract("LiquidityFactory", (accounts) => {
     CRYPTOPUNK = new ethers.Contract(CRYPTOPUNK_ADDRESS, CRYPTOPUNKABI, await provider.getSigner());
   });
 
-  xcontext("as a bidder, bidding on an ERC-721 collection", async () => {
+  context("as a bidder, bidding on an ERC-721 collection", async () => {
     it("should be able to submit a bid", async () => {
         // bidder is bidding 0.1 ETH for 1 BAYC
         const result = await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -136,7 +136,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a seller, selling an NFT from an ERC-721 collection", async () => {
+  context("as a seller, selling an NFT from an ERC-721 collection", async () => {
     it("should be able to sell a single NFT into a bid for a single NFT", async () => {
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
@@ -248,7 +248,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
+  context("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -313,7 +313,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  xcontext("as a seller, selling a Cryptopunk", async () => {
+  context("as a seller, selling a Cryptopunk", async () => {
     it("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
@@ -430,10 +430,9 @@ contract("LiquidityFactory", (accounts) => {
       assert.equal(result.receipt.status, true);
     });
     it("should receive correct payout for a single completed ERC-721 transaction", async () => {
-      console.log("owner address: ", owner);
       // check owner balance before transaction
       let ownerBalancePre = await web3.eth.getBalance(owner);
-      console.log("ownerBalancePre: ", ownerBalancePre);
+      //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 BAYC
       await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
       // seller approves contract address to transfer BAYC
@@ -443,16 +442,19 @@ contract("LiquidityFactory", (accounts) => {
       await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
       // check owner balance after transaction
       let ownerBalancePost = await web3.eth.getBalance(owner);
-      console.log("ownerBalancePost: ", ownerBalancePost);
+      //console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
       console.log("ownerBalanceDiff: ", ownerBalanceDiff);
-      assert.equal(20000000000, ownerBalanceDiff);
+      let expectedDiff = 20000000000;
+      console.log("expectedDiff: ", expectedDiff);
+      let diffErrorThreshold = 1/10000;
+      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should receive correct payout for multiple completed ERC-721 transactions", async () => {
-      console.log("owner address: ", owner);
       let ownerBalancePre = await web3.eth.getBalance(owner);
-      console.log("ownerBalancePre: ", ownerBalancePre);
+      //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 BAYC (good for up to 5 BAYC)
       await contractInstance.submitBid(BAYC_ADDRESS, 5, {from: bidder, value: 5000000000000});
       // seller approves BAYC for sale
@@ -465,29 +467,60 @@ contract("LiquidityFactory", (accounts) => {
       // seller sells 5 BAYC into bid
       await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], BAYC_ADDRESS, BAYC_HOLDINGS_FIVE, [1000000000000, 1000000000000, 1000000000000, 1000000000000, 1000000000000], {from: BAYC_HOLDER_ADDRESS});
       let ownerBalancePost = await web3.eth.getBalance(owner);
-      console.log("ownerBalancePost: ", ownerBalancePost);
+      //console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
       console.log("ownerBalanceDiff: ", ownerBalanceDiff);
-      assert.equal(100000000000, ownerBalanceDiff);
+      let expectedDiff = 100000000000;
+      console.log("expectedDiff: ", expectedDiff);
+      let diffErrorThreshold = 1/10000;
+      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
-    xit("should receive correct payout for a single completed Cryptopunk transaction", async () => {
+    it("should receive correct payout for a single completed Cryptopunk transaction", async () => {
       let ownerBalancePre = await web3.eth.getBalance(owner);
+      //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      // seller transfers Cryptopunk to contract address
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_ONE, {gasLimit: 500000})
       // seller sells 1 Cryptopunk into bid
-      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
+      const result = await contractInstance.hitBid(bidder, CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_ONE, 1000000000000, {from: CRYPTOPUNK_HOLDER_ADDRESS});
       let ownerBalancePost = await web3.eth.getBalance(owner);
-      assert.equal(ownerBalancePre+20000000000, ownerBalancePost);
+      //console.log("ownerBalancePost: ", ownerBalancePost);
+      // evaluate difference
+      let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
+      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      let expectedDiff = 20000000000;
+      console.log("expectedDiff: ", expectedDiff);
+      let diffErrorThreshold = 1/10000;
+      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
-    xit("should receive correct payout for multiple completed Cryptopunk transactions", async () => {
+    it("should receive correct payout for multiple completed Cryptopunk transactions", async () => {
       let ownerBalancePre = await web3.eth.getBalance(owner);
+      //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 BAYC)
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 5, {from: bidder, value: 5000000000000});
+      // seller transfers 5 Cryptopunks to contract
+      const CRYPTOPUNK_SIGNER = await ethers.getSigner(CRYPTOPUNK_HOLDER_ADDRESS);
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[0], {gasLimit: 500000});
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[1], {gasLimit: 500000});
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[2], {gasLimit: 500000});
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[3], {gasLimit: 500000});
+      await CRYPTOPUNK.connect(CRYPTOPUNK_SIGNER).transferPunk(contractInstance.address, CRYPTOPUNK_HOLDINGS_FIVE[4], {gasLimit: 500000});
       // seller sells 5 Cryptopunks into bid
-      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE, 1000000000000, {from: CRYPTOPUNK_HOLDER});
+      await contractInstance.hitMultipleBids([bidder, bidder, bidder, bidder, bidder], CRYPTOPUNK_ADDRESS, CRYPTOPUNK_HOLDINGS_FIVE, [1000000000000, 1000000000000, 1000000000000, 1000000000000, 1000000000000], {from: CRYPTOPUNK_HOLDER_ADDRESS});
       let ownerBalancePost = await web3.eth.getBalance(owner);
-      assert.equal(ownerBalancePre+100000000000, ownerBalancePost);
+      //console.log("ownerBalancePost: ", ownerBalancePost);
+      let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
+      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      let expectedDiff = 100000000000;
+      console.log("expectedDiff: ", expectedDiff);
+      let diffErrorThreshold = 1/10000;
+      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should have unchanged balance when a new bid is placed", async () => {
       let ownerBalancePre = await web3.eth.getBalance(owner);

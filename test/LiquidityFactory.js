@@ -445,11 +445,11 @@ contract("LiquidityFactory", (accounts) => {
       //console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
-      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      //console.log("ownerBalanceDiff: ", ownerBalanceDiff);
       let expectedDiff = 20000000000;
-      console.log("expectedDiff: ", expectedDiff);
+      //console.log("expectedDiff: ", expectedDiff);
       let diffErrorThreshold = 1/10000;
-      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should receive correct payout for multiple completed ERC-721 transactions", async () => {
@@ -470,11 +470,11 @@ contract("LiquidityFactory", (accounts) => {
       //console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
-      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      //console.log("ownerBalanceDiff: ", ownerBalanceDiff);
       let expectedDiff = 100000000000;
-      console.log("expectedDiff: ", expectedDiff);
+      //console.log("expectedDiff: ", expectedDiff);
       let diffErrorThreshold = 1/10000;
-      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should receive correct payout for a single completed Cryptopunk transaction", async () => {
@@ -491,11 +491,11 @@ contract("LiquidityFactory", (accounts) => {
       //console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
-      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      //console.log("ownerBalanceDiff: ", ownerBalanceDiff);
       let expectedDiff = 20000000000;
-      console.log("expectedDiff: ", expectedDiff);
+      //console.log("expectedDiff: ", expectedDiff);
       let diffErrorThreshold = 1/10000;
-      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should receive correct payout for multiple completed Cryptopunk transactions", async () => {
@@ -515,11 +515,11 @@ contract("LiquidityFactory", (accounts) => {
       let ownerBalancePost = await web3.eth.getBalance(owner);
       //console.log("ownerBalancePost: ", ownerBalancePost);
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
-      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      //console.log("ownerBalanceDiff: ", ownerBalanceDiff);
       let expectedDiff = 100000000000;
-      console.log("expectedDiff: ", expectedDiff);
+      //console.log("expectedDiff: ", expectedDiff);
       let diffErrorThreshold = 1/10000;
-      console.log("diffErrorThreshold: ", diffErrorThreshold);
+      //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should have unchanged balance when a new bid is placed", async () => {

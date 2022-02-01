@@ -17,7 +17,7 @@ interface CryptopunkInterface {
 contract LiquidityFactory is Ownable {
 
 	// Set owner wallet as payable
-	address payable OWNER = payable(owner());
+	//address payable OWNER = payable(owner());
 	// Percentage platform fee paid by the seller, in basis points
 	uint256 public platformFee = 200;
 
@@ -91,7 +91,8 @@ contract LiquidityFactory is Ownable {
 		// Compute platform fee proceeds
 		uint256 platformFeeProceeds = bid.weiPriceEach * platformFee / 10000;
 		// Remit platform fee proceeds to owner
-		sendValue(OWNER, platformFeeProceeds);
+		console.log("owner: ", owner());
+		sendValue(payable(owner()), platformFeeProceeds);
 		// Transfer NFT to bidder
 		// Check whether _nftAddress is Cryptopunks address
 		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {

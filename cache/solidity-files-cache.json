@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/kamilalizaisadik/DeFi/Floorquidity/contracts/LiquidityFactory.sol": {
-      "lastModificationDate": 1643730940088,
-      "contentHash": "587e80113bb6ca110584e27936d6ba53",
+      "lastModificationDate": 1643740846997,
+      "contentHash": "c010c47ec16954e1f8ce68886b9927de",
       "sourceName": "contracts/LiquidityFactory.sol",
       "solcConfig": {
         "version": "0.8.3",
@@ -43,7 +43,6 @@
         "^0.8.0"
       ],
       "artifacts": [
-        "CryptopunkInterface",
         "IERC721",
         "LiquidityFactory"
       ]

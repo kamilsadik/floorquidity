@@ -5,12 +5,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "hardhat/console.sol";
 
 interface IERC721 {
-	function ownerOf(uint256 _tokenId) external returns (address);
+	//function ownerOf(uint256 _tokenId) external returns (address);
 	function safeTransferFrom(address _from, address _to, uint256 _tokenId) external payable;
 }
-interface CryptopunkInterface {
-	function transferPunk(address _to, uint _tokenId) external;
-}
+//interface CryptopunkInterface {
+//	function transferPunk(address _to, uint _tokenId) external;
+//}
 
 /// @title A contract enabling bidders to bid on any NFT in a given collection, and holders to sell any NFT from that collection into such a bid
 /// @author Kamil Alizai Sadik
@@ -94,11 +94,11 @@ contract LiquidityFactory is Ownable {
 		sendValue(payable(owner()), platformFeeProceeds);
 		// Transfer NFT to bidder
 		// Check whether _nftAddress is Cryptopunks address
-		if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
-			CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
-		} else {
-			IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
-		}
+		//if (_nftAddress == 0xb47e3cd837dDF8e4c57F05d70Ab865de6e193BBB) {
+		//	CryptopunkInterface(_nftAddress).transferPunk(_bidderAddress, _tokenId);
+		//} else {
+		IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
+		//}
 		// Compute seller proceeds
 		uint256 sellerProceeds = bid.weiPriceEach - platformFeeProceeds;
 		// Remit seller proceeds to seller

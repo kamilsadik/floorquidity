@@ -248,7 +248,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as a bidder, bidding on a Cryptopunk", async () => {
+  xcontext("as a bidder, bidding on a Cryptopunk", async () => {
     it("should be able to submit a bid", async () => {
       // bidder is bidding 0.1 ETH for 1 Cryptopunk
       const result = await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 100000000000000000});
@@ -313,7 +313,7 @@ contract("LiquidityFactory", (accounts) => {
     });
   })
 
-  context("as a seller, selling a Cryptopunk", async () => {
+  xcontext("as a seller, selling a Cryptopunk", async () => {
     it("should be able to sell a single Cryptopunk into a bid for a single Cryptopunk", async () => {
       // bidder bids 0.000001 ETH for 1 Cryptopunk
       await contractInstance.submitBid(CRYPTOPUNK_ADDRESS, 1, {from: bidder, value: 1000000000000});
@@ -477,7 +477,7 @@ contract("LiquidityFactory", (accounts) => {
       //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
-    it("should receive correct payout for a single completed Cryptopunk transaction", async () => {
+    xit("should receive correct payout for a single completed Cryptopunk transaction", async () => {
       let ownerBalancePre = await web3.eth.getBalance(owner);
       //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 Cryptopunk
@@ -498,7 +498,7 @@ contract("LiquidityFactory", (accounts) => {
       //console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
-    it("should receive correct payout for multiple completed Cryptopunk transactions", async () => {
+    xit("should receive correct payout for multiple completed Cryptopunk transactions", async () => {
       let ownerBalancePre = await web3.eth.getBalance(owner);
       //console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 Cryptopunk (good for up to 5 BAYC)

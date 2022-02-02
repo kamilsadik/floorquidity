@@ -429,27 +429,32 @@ contract("LiquidityFactory", (accounts) => {
       const result = await contractInstance.changePlatformFee(100, {from: owner});
       assert.equal(result.receipt.status, true);
     });
+    it("should not be able to set a platformFee exceeding maxPlatformFee", async () => {
+      await utils.shouldThrow(contractInstance.changePlatformFee(600, {from: owner}));
+    });
     it("should receive correct payout for a single completed ERC-721 transaction", async () => {
       // check owner balance before transaction
       let ownerBalancePre = await web3.eth.getBalance(owner);
-      //console.log("ownerBalancePre: ", ownerBalancePre);
+      console.log("ownerBalancePre: ", ownerBalancePre);
       // bidder bids 0.000001 ETH for 1 BAYC
-      await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 1000000000000});
+      await contractInstance.submitBid(BAYC_ADDRESS, 1, {from: bidder, value: 5000000000000000});
       // seller approves contract address to transfer BAYC
       const BAYC_SIGNER = await ethers.getSigner(BAYC_HOLDER_ADDRESS);
       await ERC721_BAYC.connect(BAYC_SIGNER).approve(contractInstance.address, BAYC_HOLDINGS_ONE, {gasLimit: 500000});
       // seller sells 1 BAYC into bidder's bid
-      await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 1000000000000, {from: BAYC_HOLDER_ADDRESS});
+      await contractInstance.hitBid(bidder, BAYC_ADDRESS, BAYC_HOLDINGS_ONE, 5000000000000000, {from: BAYC_HOLDER_ADDRESS});
+      // owner withdraws platform fee
+      await contractInstance.withdraw({from: owner});
       // check owner balance after transaction
       let ownerBalancePost = await web3.eth.getBalance(owner);
-      //console.log("ownerBalancePost: ", ownerBalancePost);
+      console.log("ownerBalancePost: ", ownerBalancePost);
       // evaluate difference
       let ownerBalanceDiff = ownerBalancePost - ownerBalancePre;
-      //console.log("ownerBalanceDiff: ", ownerBalanceDiff);
-      let expectedDiff = 20000000000;
-      //console.log("expectedDiff: ", expectedDiff);
+      console.log("ownerBalanceDiff: ", ownerBalanceDiff);
+      let expectedDiff = 100000000000000;
+      console.log("expectedDiff: ", expectedDiff);
       let diffErrorThreshold = 1/10000;
-      //console.log("diffErrorThreshold: ", diffErrorThreshold);
+      console.log("diffErrorThreshold: ", diffErrorThreshold);
       assert.isAtMost(Math.abs(ownerBalanceDiff-expectedDiff), expectedDiff*diffErrorThreshold);
     });
     it("should receive correct payout for multiple completed ERC-721 transactions", async () => {

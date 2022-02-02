@@ -14,6 +14,10 @@ contract LiquidityFactory is Ownable {
 
 	// Percentage platform fee paid by the seller, in basis points
 	uint256 public platformFee = 200;
+	// Max allowable platformFee, in basis points
+	uint256 public maxPlatformFee = 500;
+	// Current owner balance stored in contract
+	uint256 ownerBalance = 0;
 
 	// Event that fires when a new bid is submitted
 	event NewBid(address indexed bidderAddress, address indexed nftAddress, uint weiPriceEach, uint quantity, uint tokenId);
@@ -85,7 +89,7 @@ contract LiquidityFactory is Ownable {
 		// Compute platform fee proceeds
 		uint256 platformFeeProceeds = bid.weiPriceEach * platformFee / 10000;
 		// Remit platform fee proceeds to owner
-		sendValue(payable(owner()), platformFeeProceeds);
+		ownerBalance += platformFeeProceeds;
 		// Transfer NFT to bidder
 		IERC721(_nftAddress).safeTransferFrom(msg.sender, _bidderAddress, _tokenId);
 		// Compute seller proceeds
@@ -120,6 +124,7 @@ contract LiquidityFactory is Ownable {
 	/// @dev Allows owner to change platformFee
 	/// @param _newPlatformFee New platform fee
 	function changePlatformFee(uint _newPlatformFee) external onlyOwner {
+		require(_newPlatformFee <= maxPlatformFee, "Cannot exceed maxPlatformFee");
 		platformFee = _newPlatformFee;
 	}
 
@@ -130,6 +135,13 @@ contract LiquidityFactory is Ownable {
 		require(address(this).balance >= amount, "Address: insufficient balance");
 		(bool success, ) = recipient.call{ value: amount }("");
 		require(success, "Address: unable to send value, recipient may have reverted");
+	}
+
+	/// @dev Allows owner to withdraw accumulated platform fees
+	function withdraw() external onlyOwner {
+		uint256 withdrawalAmount = ownerBalance;
+		ownerBalance = 0;
+		sendValue(payable(owner()), withdrawalAmount);
 	}
 
 	/// @dev Getter function to display a single bid on front-end

@@ -153,7 +153,7 @@ contract LiquidityFactory is Ownable {
 	}
 
 	/// @dev Getter function to display multiple bids on front-end
-	/// @param _bidderAddresses Array of bidders
+	/// @param _bidderAddresses Array of bidder addresses
 	/// @param _nftAddresses Array of collections to which each bid (respectively) applies
 	/// @return Array of desired bids
 	function getBids(address[] memory _bidderAddresses, address[] memory _nftAddresses) external view returns (Bid[] memory) {
